@@ -30,3 +30,30 @@ So, in the core of Node.js, we have the concept of **modules**. Every file in a 
 If we want to use a function or variable **outside of that module**, we need to **explicitly export** it to make it **public**.
 
 We can see the module information in a file using: `console.log(module);`
+
+# Creating a Module
+
+We can export modules using `module.exports.log = log`;
+
+# Loading a Module
+
+We can load a module using `require` function. This require function returns a object.
+
+It is good to use **const** instead of var because we should not override the imported object later
+
+Tip: If we want to check a file for errors, we can use JSHint like this: `jshint app.js(FILENAME.js)`
+
+---
+
+Extra: If we want to export only a single function, we can use:
+
+`module.exports = log;`
+
+Then, when importing the module, we can use
+
+```javascript
+const log = require("./logger");
+log("Hello");
+```
+
+This is useful when your module only needs to expose one main function .
