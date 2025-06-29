@@ -31,6 +31,8 @@ If we want to use a function or variable **outside of that module**, we need to 
 
 We can see the module information in a file using: `console.log(module);`
 
+<img src="./Images/image-7.png" width="500">
+
 # Creating a Module
 
 We can export modules using `module.exports.log = log`;
@@ -45,15 +47,37 @@ Tip: If we want to check a file for errors, we can use JSHint like this: `jshint
 
 ---
 
-Extra: If we want to export only a single function, we can use:
+### Extra -:
+
+If we want to export only a single function, we can use:
 
 `module.exports = log;`
 
 Then, when importing the module, we can use
 
 ```javascript
-const log = require("./logger");
-log("Hello");
+const logger = require("./logger");
+logger("Hello");
 ```
 
 This is useful when your module only needs to expose one main function .
+
+# Module Wrapper Function
+
+The variables and functions we define inside a module are **limited in scope to that file**. They are not visible to other files by default.
+
+This is because Node.js automatically wraps each module in a **Module Wrapper Function**, like this:
+
+```javascript
+(function (exports, require, module, __filename, __dirname) {
+  // Your module code lives here
+});
+```
+
+---
+
+### Extra -:
+
+Instead of using `module.exports`, we can also use the shorthand `exports` (`exports.log = log`) .
+
+However, be careful not to **assign exports directly** (e.g., `module.exports = log` _works_ / `exports = log` _not working_ )
