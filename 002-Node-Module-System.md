@@ -101,3 +101,24 @@ This allows the program to continue running without waiting for the operation to
 One of the core concepts of Node.js is the concept of **events**. In fact, many of Node's core functionalities are based on this concept. An **event** is essentially a signal that indicates something has happened in the application.
 
 For example, in Node.js, there is a class called `http` that we can use to build a web server. We listen on a given port, and every time a request is received on that port, the `http` class _raises an event_. Our job as developers is to respond to that event, which usually involves reading the request and sending back the appropriate response.
+
+**Note** – Unlike the `os` or `path` modules, `require("events")` returns an **object that contains a class**. That is why we use camel case for `EventEmitter`. (But `require("path") `returns an **object with functions**, and `require("os")` returns an **object with properties + functions**.)
+
+# Extending Event Emitter
+
+#### Wrong way - :
+
+Here, when we run `node app.js`, only `message123` will be printed in the console. The reason is, we are working with two different `EventEmitter` instances. In `app.js`, we create and listen on one `emitter` object, but in `logger.js`, we create a separate `emitter` object and emit(raise) the event from there. Since they are different objects, the listener in `app.js` will not respond to the event emitted in `logger.js`.
+
+#### Correct way - :
+
+If we need to **raise events** in our application to signal that something has happened, we should create a **class that extends** `EventEmitter`.
+
+By doing this:
+
+- Our custom class inherits all the methods and functionality from `EventEmitter`.
+- We can also add **custom methods**, like the `log()` method in this case.
+
+Inside that class, when we want to raise an event, we can use `this.emit(...)`. This works because `this` refers to the instance of our custom class, which already **extends** `EventEmitter`, so it has access to all of its methods. (`this.emit(...)` is the **same as** `logger.emit(...)`, because `this` refers to the same instance )
+
+Finally, in `app.js`, instead of creating an instance of `EventEmitter` directly, we create an instance of our custom class (`Logger`). This way, we ensure we are always working with the **same object** — both for emitting and listening to events.
