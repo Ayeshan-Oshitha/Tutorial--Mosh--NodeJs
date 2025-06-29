@@ -3,6 +3,3 @@ function sayHello() {
 }
 
 sayHello();
-
-// Run the program using Node.js
-// node app.js (node APPNAME.js)

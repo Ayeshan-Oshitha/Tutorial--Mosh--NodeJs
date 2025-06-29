@@ -89,3 +89,9 @@ So this type of architecture (**Node-type asynchronous architecture**) is ideal 
 In contrast, **Node shouldn’t be used for CPU-intensive** applications like video encoding or image manipulation services. In this kind of application, we have a lot of calculations done by the CPU, and only a few operations that touch the file system or network.
 
 Since Node applications are **single-threaded**, when performing the calculation to serve one client, other clients have to wait. That is why **Node shouldn’t be used for CPU-intensive applications**. It should only be used for **data-intensive and real-time applications**.
+
+---
+
+**Run the program** using Node.js - _node app.js_ (node APPNAME.js)
+
+If we add `console.log(window)` to the app file and run the Node file, then we will get an error, because we don't have a window object in Node. Instead, if we run this on the browser, we will get the window object.
