@@ -81,3 +81,25 @@ This is because Node.js automatically wraps each module in a **Module Wrapper Fu
 Instead of using `module.exports`, we can also use the shorthand `exports` (`exports.log = log`) .
 
 However, be careful not to **assign exports directly** (e.g., `module.exports = log` _works_ / `exports = log` _not working_ )
+
+---
+
+## My Note - Few Built In Modules
+
+Node.js comes with several built-in core modules that provide essential features for building applications. Some of the most commonly used modules include:
+
+- **http**: To create web servers and handle HTTP requests.
+- **fs (File System)**: To work with files and directories.
+- **os**: To access operating system-related information.
+- **path**: To handle and manipulate file paths.
+- **process**: To interact with the current Node.js process.
+- **querystring**: To parse and format URL query strings.
+- **stream**: To work with streaming data for efficient input/output.
+
+---
+
+## My Note - Asynchronous Methods
+
+All asynchronous methods in Node.js take **a function as their last argument**, which is called a **callback**. Node.js automatically calls this function when the asynchronous operation is complete.
+
+This allows the program to continue running without waiting for the operation to finish.
