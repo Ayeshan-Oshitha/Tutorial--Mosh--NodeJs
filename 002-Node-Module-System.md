@@ -45,8 +45,6 @@ It is good to use **const** instead of var because we should not override the im
 
 Tip: If we want to check a file for errors, we can use JSHint like this: `jshint app.js(FILENAME.js)`
 
----
-
 ### Extra -:
 
 If we want to export only a single function, we can use:
@@ -74,15 +72,11 @@ This is because Node.js automatically wraps each module in a **Module Wrapper Fu
 });
 ```
 
----
-
 ### Extra -:
 
 Instead of using `module.exports`, we can also use the shorthand `exports` (`exports.log = log`) .
 
 However, be careful not to **assign exports directly** (e.g., `module.exports = log` _works_ / `exports = log` _not working_ )
-
----
 
 ## My Note - Few Built In Modules
 
@@ -96,10 +90,14 @@ Node.js comes with several built-in core modules that provide essential features
 - **querystring**: To parse and format URL query strings.
 - **stream**: To work with streaming data for efficient input/output.
 
----
-
 ## My Note - Asynchronous Methods
 
 All asynchronous methods in Node.js take **a function as their last argument**, which is called a **callback**. Node.js automatically calls this function when the asynchronous operation is complete.
 
 This allows the program to continue running without waiting for the operation to finish.
+
+# Events Module
+
+One of the core concepts of Node.js is the concept of **events**. In fact, many of Node's core functionalities are based on this concept. An **event** is essentially a signal that indicates something has happened in the application.
+
+For example, in Node.js, there is a class called `http` that we can use to build a web server. We listen on a given port, and every time a request is received on that port, the `http` class _raises an event_. Our job as developers is to respond to that event, which usually involves reading the request and sending back the appropriate response.
