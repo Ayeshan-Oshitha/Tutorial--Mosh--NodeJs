@@ -22,3 +22,13 @@ We can install a package using `npm install <package-name>`, and then it will be
 When we add a Node package, it will automatically be added to the package.json file.
 
 Every Node module has its own package.json file inside the node_modules folder.
+
+# Using a package
+
+When we want to use a package in Node.js, we include it using the `require` function.
+
+This is how `require` resolves the required modules:
+
+1. First, it checks whether the module is a core module in Node (like `os, path`).
+2. Then it assumes it is a file or folder (if we add the `./`).
+3. Then it assumes that it is a module in the `node_modules` folder.
