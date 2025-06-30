@@ -32,3 +32,13 @@ This is how `require` resolves the required modules:
 1. First, it checks whether the module is a core module in Node (like `os, path`).
 2. Then it assumes it is a file or folder (if we add the `./`).
 3. Then it assumes that it is a module in the `node_modules` folder.
+
+# Package Dependencies
+
+When we install the mongoose package, it also installs all its dependent packages. So, when we install a package, all its **dependency packages** are also installed in the **root node_modules** folder.
+
+In earlier versions of Node.js, when we installed a package, its dependencies were stored inside that particular package's folder. But this created a mess because we ended up with the same package being installed in multiple places. In some situations, it also resulted in a very deeply nested structure.
+
+So, in recent versions of Node.js and npm, all packages and their dependency packages are stored directly under the root node_modules folder.
+
+There is an exception, however — if one of the packages depends on a _different version_ of a dependency than the one currently installed, then that version will be stored _locally inside that specific package’s folder_.
