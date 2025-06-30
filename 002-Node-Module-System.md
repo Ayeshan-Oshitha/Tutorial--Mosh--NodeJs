@@ -122,3 +122,11 @@ By doing this:
 Inside that class, when we want to raise an event, we can use `this.emit(...)`. This works because `this` refers to the instance of our custom class, which already **extends** `EventEmitter`, so it has access to all of its methods. (`this.emit(...)` is the **same as** `logger.emit(...)`, because `this` refers to the same instance )
 
 Finally, in `app.js`, instead of creating an instance of `EventEmitter` directly, we create an instance of our custom class (`Logger`). This way, we ensure we are always working with the **same object** — both for emitting and listening to events.
+
+# HTTP Module
+
+The server we create from http.createServer is actually an EventEmitter. So, it has event listening and emitting capabilities. (_app1.js_)
+
+In _app2.js_ and _app3.js_, we have used the HTTP module to create a server/backend for our application. (Here, when we had routes, we had to add them in a linear way, which results in more code.) But actually, in the future, we will use a framework called **Express**, which provides a cleaner structure to handle the various routes.
+
+Internally, the **Express** framework is built on top of the **HTTP module** in Node.js.
