@@ -14,3 +14,11 @@ The **package.json** file is a basic file that contains information about the pr
 All Node.js applications have this package.json file. To create a package.json file, we can use the command `npm init`.
 
 Also, if we want to create a package.json file without answering all the questions, we can use `npm init --yes`.
+
+# Installing a Node Package
+
+We can install a package using `npm install <package-name>`, and then it will be stored in a folder called **node_modules**.
+
+When we add a Node package, it will automatically be added to the package.json file.
+
+Every Node module has its own package.json file inside the node_modules folder.
