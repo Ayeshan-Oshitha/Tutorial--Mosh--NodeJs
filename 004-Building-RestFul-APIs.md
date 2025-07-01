@@ -21,3 +21,9 @@ set PORT=5000
 ```
 
 Now, process.env.PORT will return 5000.
+
+# Route Parameters
+
+We use route parameters for essential (required) values.
+
+We use query parameters for optional values.
