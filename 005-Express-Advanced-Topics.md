@@ -118,3 +118,9 @@ Some of the most popular template engines are:
 - Mustache
 
 Each template engine has its own unique syntax.
+
+# Database Integration
+
+We can integrate multiple databases with an Express application.
+
+To view all the supported options and guides, you can visit the Mongoose website and go to the "**Guide → Database Integration**" section.
