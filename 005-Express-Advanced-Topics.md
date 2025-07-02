@@ -17,3 +17,13 @@ So, Express includes a few middleware functions by default. But we can also crea
 # Creating Custom Middleware
 
 When we create a custom middleware, we should normally use `next()` to pass control to the next middleware. Otherwise, the request processing cycle will terminate.
+
+# Built-in-Middleware
+
+In Express, there are a few built-in middleware functions:
+
+1. **express.json()** – This parses the body of the request. If there is a JSON object in the request body, it will populate the `req.body` property.
+
+2. **express.urlencoded()** – This is a traditional method used to parse incoming requests with URL-encoded payloads (like HTML form submissions). It extracts key-value pairs from the request body and populates the `req.body` property, similar to how `express.json()` works for JSON data.
+
+3. **express.static()** – This middleware is used to serve static assets like CSS files, images, JavaScript files, etc. You can use it to expose a folder (like `public`) that holds all your static files.
