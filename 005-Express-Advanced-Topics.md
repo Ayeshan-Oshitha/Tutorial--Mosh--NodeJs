@@ -27,3 +27,15 @@ In Express, there are a few built-in middleware functions:
 2. **express.urlencoded()** – This is a traditional method used to parse incoming requests with URL-encoded payloads (like HTML form submissions). It extracts key-value pairs from the request body and populates the `req.body` property, similar to how `express.json()` works for JSON data.
 
 3. **express.static()** – This middleware is used to serve static assets like CSS files, images, JavaScript files, etc. You can use it to expose a folder (like `public`) that holds all your static files.
+
+# Third-party Middleware
+
+There are many third-party middleware packages available for Express. You can find a list of them in the Express documentation under (Resources → Middleware).
+
+Here are a few popular ones:
+
+1. **Morgan** – Logs incoming HTTP requests. Useful for debugging and monitoring.
+
+2. **Helmet** – Helps secure your app by setting various HTTP headers to protect against common web vulnerabilities.
+
+**Note** - Don't use unnecessary middleware, because it can slow down the request processing and affect your app's performance. Only include the middleware that is essential for your application's functionality.
