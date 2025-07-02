@@ -1,28 +1,23 @@
 const Joi = require("joi");
 const morgan = require("morgan");
 const config = require("config");
+const startupDebugger = require("debug")("app:startup");
+const dbDebugger = require("debug")("app:db");
 const logger = require("./logger");
 const express = require("express");
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", "./views");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-console.log("NODE_ENV : " + process.env.NODE_ENV);
-console.log("app.env : " + app.get("env"));
-
-// Configurations
-console.log("Application Name : " + config.get("name"));
-console.log("Mail Server : " + config.get("mail.host"));
-console.log("Mail Password : " + config.get("mail.password"));
-
 if (app.get("env") == "development") {
-  console.log("morgan enabled");
+  startupDebugger("morgan enabled");
   app.use(morgan("tiny"));
 }
-
-app.use(logger);
 
 const courses = [
   { id: 1, name: "Course 1" },
@@ -31,7 +26,7 @@ const courses = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("Hello Client");
+  res.render("index", { title: "My Express App", message: "Hello" });
 });
 
 app.get("/api/courses", (req, res) => {

@@ -81,3 +81,40 @@ If you want to set secrets for different environments using `custom-environment-
 ## Alternative Ways
 
 Instead of using the config package, we can also use the dotenv package for environment configuration and managing secret settings.
+
+# Debugging
+
+Sometimes, when we are debugging an application, we tend to use a lot of `console.log` statements. But later, we clear them out, and then again, we add them back. This is not a good practice.
+
+Instead, we can use the `debug` third-party package.
+
+So, we can divide the app into a few debug workspaces (because this debug package outputs based on function namespaces). For example: normal app debugging, database-related debugging — and we can associate each with a specific namespace.
+
+Then, through environment variables or while running the app, we can set the debugging workspace we need:
+
+```bash
+set DEBUG=app:startup
+# or
+set DEBUG=app:db
+# or
+set DEBUG=app:startup,app:db
+# or
+set DEBUG=app:*
+
+# or set Debug and run same time
+DEBUG=app:* nodemon index.js # Only workd in Powershell and Bash
+```
+
+This is much easier than manually adding, finding, erasing, and re-adding `console.logs`.
+
+# Template Engines
+
+If we need to return some HTML markup in response to a request, we can use template engines.
+
+Some of the most popular template engines are:
+
+- Pug
+- EJS
+- Mustache
+
+Each template engine has its own unique syntax.
