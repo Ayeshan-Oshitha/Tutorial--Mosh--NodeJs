@@ -65,3 +65,19 @@ To set the environment to production, you can run:
 ```bash
 SET NODE_ENV=production   # On Windows
 ```
+
+# Configurations
+
+Normally, we need to manage configurations for each environment. For this, we can use Node packages (most popular are `rs` and `config`). Here, we will talk about `config`.
+
+In a `config` folder, we can define the files for different environments, and then we can use them in our application.
+
+**Note**: By default, even if NODE_ENV is not set (i.e., it is undefined), Express's app.env is automatically set to "development". Because of this, it will read the values from development.json configuration file.
+
+But we **should not store secrets** in these config files. To handle that, we can set them using the terminal(`set express_demo_password1=1234`) and map them through a custom-environment-variables.json file.
+
+If you want to set secrets for different environments using `custom-environment-variables.json`, you need to switch environments in the terminal and manually set the appropriate values for the same keys each time. For example, set a development password when in the development environment, and a production password when in the production environment, before starting your application each time you change.
+
+## Alternative Ways
+
+Instead of using the config package, we can also use the dotenv package for environment configuration and managing secret settings.
