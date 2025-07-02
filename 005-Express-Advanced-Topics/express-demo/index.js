@@ -7,7 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(morgan("tiny"));
+
+if (app.get("env") == "development") {
+  console.log("morgan enabled");
+  app.use(morgan("tiny"));
+}
 
 app.use(logger);
 

@@ -39,3 +39,29 @@ Here are a few popular ones:
 2. **Helmet** – Helps secure your app by setting various HTTP headers to protect against common web vulnerabilities.
 
 **Note** - Don't use unnecessary middleware, because it can slow down the request processing and affect your app's performance. Only include the middleware that is essential for your application's functionality.
+
+# Environments
+
+We should always know which environment we are working in — whether it's **development**, **production**, **testing** or **staging**. Based on the environment, we may want to enable or disable certain features (like logging, debugging, or error messages).
+
+There are two main ways to check the environment:
+
+1. `console.log(process.env.NODE_ENV)`
+
+   This reads the environment variable `NODE_ENV` directly.
+
+   - If the environment is not set, it will return `undefined`.
+
+2. `console.log(app.get('env'))`
+
+   This uses the Express `app.get('env')` method, which internally checks `process.env.NODE_ENV`.
+
+   - If the environment is not set, this will default to `'development'`.
+
+We can use this to conditionally enable or disable features depending on the environment.
+
+To set the environment to production, you can run:
+
+```bash
+SET NODE_ENV=production   # On Windows
+```
