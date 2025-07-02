@@ -13,3 +13,7 @@ Essentially, this happens at runtime. When we receive a request on the server, t
 <img src="./Images/image-9.png" width="600">
 
 So, Express includes a few middleware functions by default. But we can also create custom middleware that we can put at the front of our request processing pipeline. So every request that gets into our server will go through our middleware. With this custom middleware, we can perform cross-cutting concerns like logging, authentication, authorization, etc.
+
+# Creating Custom Middleware
+
+When we create a custom middleware, we should normally use `next()` to pass control to the next middleware. Otherwise, the request processing cycle will terminate.
