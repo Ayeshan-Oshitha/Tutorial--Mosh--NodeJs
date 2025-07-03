@@ -185,3 +185,62 @@ console.log("User:", { id: 1, gitHubUsername: "mosh" });
 `callback({ ... })` ➜ **calls** the function you passed in
 
 And the value inside `{ ... }` becomes the **argument**
+
+# Callback Hell
+
+Here is an another example of using **callbacks**:
+
+```javascript
+console.log("Before");
+getUser(1, function (user) {
+  console.log("User :", user);
+
+  //  Get the Repositories
+  getRepositories(user.gitHubUsername, function (repos) {
+    console.log("Repos : ", repos);
+  });
+});
+console.log("After");
+
+function getUser(id, callback) {
+  setTimeout(() => {
+    console.log("Reading a user from a database");
+    callback({ id: id, gitHubUsername: "mosh" });
+  }, 2000);
+}
+
+function getRepositories(username, callback) {
+  setTimeout(() => {
+    console.log("Reading Repositories from the API");
+    callback({ username: username, repositories: ["repo1", "repo2", "repo3"] });
+  }, 2000);
+}
+```
+
+Explanation:
+
+- We first get the **user** using `getUser`.
+- Once we have the user, we call `getRepositories` using the user's GitHub username.
+- Each function depends on the **result of the previous** one, so we nest them inside each other.
+
+Now, imagine we have more steps. For example:
+
+```javascript
+// Asynchronous
+console.log("Before");
+getUser(1, function (user) {
+  getRepositories(user.gitHubUsername, function (repos) {
+    getCommits(repo.id, function (commits) {});
+  });
+});
+console.log("After");
+
+// Synchronous - For comparison — the synchronous version would look like:
+console.log("Before");
+const user = getUser(1);
+const repos = getRepositories(user.gitHubUsername);
+const commits = getCommits(repos[0]);
+console.log("Before");
+```
+
+So, Asynchronous code becomes deeply nested, and harder to read and maintain. This deeply nested structure is called Callback Hell. (It's hard to read, It's hard to manage, It gets worse with more steps)
