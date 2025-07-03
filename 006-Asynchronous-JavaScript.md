@@ -92,3 +92,96 @@ To deal with this problem, we have 3 solutions
 3. Async Await
 
 These are ways to handle **asynchronous operations** properly in JavaScript, where you need to **wait for a result** before using it.
+
+# Callback
+
+Mosh - callback is a function that we are going to call when the results of asynchronous operation is ready.
+
+ChatGPT - A callback is just a function you pass as an argument to another function — to be called later (usually after something finishes).
+
+```javascript
+console.log("Before");
+
+getUser(1, function (user) {
+  console.log("User:", user);
+});
+
+console.log("After");
+
+function getUser(id, callback) {
+  setTimeout(() => {
+    console.log("Reading a user from a database");
+    callback({ id: id, gitHubUsername: "mosh" });
+  }, 2000);
+}
+```
+
+Now the output is :
+
+```bash
+Before
+After
+Reading a user from a database
+User : { id: 1, gitHubUsername: 'mosh' }
+```
+
+### Flow ->
+
+Earlier in your code:
+
+```javascript
+getUser(1, function (user) {
+  console.log("User:", user);
+});
+```
+
+Here, you're calling `getUser` and passing a **function** as the second argument:
+
+```javascript
+function(user) {
+  console.log("User:", user);
+}
+```
+
+Above function becomes the `callback` parameter inside `getUser`.
+
+#### So inside `getUser` :
+
+```javascript
+function getUser(id, callback) {
+  setTimeout(() => {
+    console.log("Reading a user from a database");
+
+    // 👇 This line calls the function you passed in
+    callback({ id: id, gitHubUsername: "mosh" });
+  }, 2000);
+}
+```
+
+This means:
+
+- `callback` is really this function:
+
+```javascript
+function(user) {
+  console.log("User:", user);
+}
+```
+
+- When you write
+
+```javascript
+callback({ id: id, gitHubUsername: "mosh" });
+```
+
+- you are literally doing this:
+
+```javascript
+console.log("User:", { id: 1, gitHubUsername: "mosh" });
+```
+
+✅ **So in simpler terms**
+
+`callback({ ... })` ➜ **calls** the function you passed in
+
+And the value inside `{ ... }` becomes the **argument**
