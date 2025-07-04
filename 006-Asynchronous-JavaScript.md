@@ -203,6 +203,7 @@ getUser(1, function (user) {
 console.log("After");
 
 function getUser(id, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading a user from a database");
     callback({ id: id, gitHubUsername: "mosh" });
@@ -210,6 +211,7 @@ function getUser(id, callback) {
 }
 
 function getRepositories(username, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading Repositories from the API");
     callback({ username: username, repositories: ["repo1", "repo2", "repo3"] });
@@ -275,6 +277,7 @@ getUser(1, function (user) {
 console.log("After");
 
 function getUser(id, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading a user from a database");
     callback({ id: id, gitHubUsername: "mosh" });
@@ -282,6 +285,7 @@ function getUser(id, callback) {
 }
 
 function getRepositories(username, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading Repositories from the API");
     callback({ username: username, repositories: ["repo1", "repo2", "repo3"] });
@@ -289,6 +293,7 @@ function getRepositories(username, callback) {
 }
 
 function getcommits(repo, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading Commits from Repositories");
     callback({ repo: repo, commits: ["commit", "commit2", "commit3"] });
@@ -315,6 +320,7 @@ function displayCommits1(commits) {
 }
 
 function getUser(id, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading a user from a database");
     callback({ id: id, gitHubUsername: "mosh" });
@@ -322,6 +328,7 @@ function getUser(id, callback) {
 }
 
 function getRepositories(username, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading Repositories from the API");
     callback({ username: username, repositories: ["repo1", "repo2", "repo3"] });
@@ -329,6 +336,7 @@ function getRepositories(username, callback) {
 }
 
 function getcommits(repo, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading Commits from Repositories");
     callback({ repo: repo, commits: ["commit", "commit2", "commit3"] });
@@ -387,6 +395,7 @@ getUser(1, function (user) {
 console.log("After");
 
 function getUser(id, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading a user from a database");
     callback({ id: id, gitHubUsername: "mosh" });
@@ -394,6 +403,7 @@ function getUser(id, callback) {
 }
 
 function getRepositories(username, callback) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading Repositories from the API");
     callback({ username: username, repositories: ["repo1", "repo2", "repo3"] });
@@ -401,6 +411,7 @@ function getRepositories(username, callback) {
 }
 
 function getcommits(repo, callback) {
+  /// Mocking an asynchronous operation (e.g., reading data from an API or database)
   setTimeout(() => {
     console.log("Reading Commits from Repositories");
     callback({ repo: repo, commits: ["commit", "commit2", "commit3"] });
@@ -421,6 +432,7 @@ getUser(1, function (user) {
 console.log("After");
 
 function getUser(id) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log("Reading a user from a database");
@@ -430,6 +442,7 @@ function getUser(id) {
 }
 
 function getRepositories(username) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log("Reading Repositories from the API");
@@ -442,6 +455,7 @@ function getRepositories(username) {
 }
 
 function getcommits(repo) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log("Reading Commits from Repositories");
@@ -455,14 +469,17 @@ function getcommits(repo) {
 
 ```javascript
 console.log("Before");
+
 getUser(1)
   .then((user) => getRepositories(user.gitHubUsername)) // getUser returns a user object. If successful, call getRepositories
   .then((repos) => getcommits(repos[0])) // getRepositories returns a repositories object. If successful, call getCommits
   .then((commits) => console.log("Commits", commits)) // getCommits returns commits. If successful, log them
-  .catch((error) => console.log("Error :", error.message)); // // If any of the above promises fail, catch the error and log the error message
+  .catch((error) => console.log("Error :", error.message)); // If any of the above promises fail, catch the error and log the error message
+
 console.log("After");
 
 function getUser(id) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log("Reading a user from a database");
@@ -472,6 +489,7 @@ function getUser(id) {
 }
 
 function getRepositories(username) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log("Reading Repositories from the API");
@@ -484,6 +502,7 @@ function getRepositories(username) {
 }
 
 function getcommits(repo) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log("Reading Commits from Repositories");
@@ -552,3 +571,108 @@ It means:
 - If one or more of them **reject**, it will simply **ignore** those and keep waiting for a successful (resolved) one.
 
 - But if **all the promises reject**, then `Promise.any()` itself will also reject — with an `AggregateError` containing all the errors.
+
+# Async and Await
+
+- Async and await help to write asynchronous code in a synchronous way. (JavaScript async and await is similar to C# async and await)
+
+- Whenever we use `await`, we should have a function decorated with `async`. ( The reason **we need to decorate a function with** `async` **when using** `await` is because `await` only works **inside an** `async` **function**. Here's why:
+
+  - The `await` keyword **pauses the execution** of the function until the Promise is resolved or rejected.
+  - This kind of pausing behavior is **only allowed inside functions marked as** `async`.
+  - Without `async`, JavaScript has no context to understand that it should wait, so using `await` outside of an `async` function would cause a syntax error.)
+
+- In the Promise-based approach, we use `.catch `to catch the error. But in async/await, we use a `try/catch` block.
+
+```javascript
+// Promise-based approach
+console.log("Before");
+
+getUser(1)
+  .then((user) => getRepositories(user.gitHubUsername))
+  .then((repos) => getcommits(repos[0]))
+  .then((commits) => console.log("Commits", commits))
+  .catch((error) => console.log("Error :", error.message));
+
+console.log("After");
+```
+
+```javascript
+// async-await approach
+console.log("Outer Before");
+
+async function displayCommits() {
+  try {
+    console.log("Inner Before");
+    const user = await getUser(1);
+    const repos = await getRepositories(user.username);
+    const commits = await getcommits(repos[0]);
+    console.log("commits :", commits);
+    console.log("Inner After");
+  } catch (error) {
+    console.log("error : ", error);
+  }
+}
+
+displayCommits();
+
+console.log("Outer After");
+
+function getUser(id) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Reading a user from a database");
+      resolve({ id: id, gitHubUsername: "mosh" });
+    }, 2000);
+  });
+}
+
+function getRepositories(username) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Reading Repositories from the API");
+      resolve({
+        username: username,
+        repositories: ["repo1", "repo2", "repo3"],
+      });
+    }, 2000);
+  });
+}
+
+function getcommits(repo) {
+  // Mocking an asynchronous operation (e.g., reading data from an API or database)
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Reading Commits from Repositories");
+      resolve({ repo: repo, commits: ["commit", "commit2", "commit3"] });
+    }, 2000);
+  });
+}
+```
+
+Output is :
+
+```bash
+Outer Before
+Inner Before
+Outer After
+Reading a user from a database
+Reading Repositories from the API
+Reading Commits from Repositories
+commits : { repo: undefined, commits: [ 'commit', 'commit2', 'commit3' ] }
+Inner After
+```
+
+- First, the program executes `console.log("Outer Before")`. Then it enters the `displayCommits()` function and prints `Inner Before`.
+
+- The control then reaches the line `const user = await getUser(1)`. Since `getUser` is an asynchronous function, the `await` pauses the function’s execution at this point and **releases the thread**, allowing JavaScript to continue running other code.
+
+- Because of that, `console.log("Outer After")` executes **before** the result of `getUser(1)` is available.
+
+- Once `getUser` finishes and returns the result, it is assigned to `user`. Then the function continues to the next `await` call: `getRepositories(user.username)`.
+
+- Again, the function **pauses and releases the thread** until the repositories are returned. When the result is ready, it proceeds to call `getcommits(repos[0])`.
+
+- Since this is also awaited, the function pauses once more and releases the thread. When the commits are fetched, they are assigned to `commits`, and finally, the function prints the commits and `Inner After`.
