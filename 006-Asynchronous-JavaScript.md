@@ -226,11 +226,24 @@ Explanation:
 Now, imagine we have more steps. For example:
 
 ```javascript
-// Asynchronous
+// Asynchronous - Normal Function
 console.log("Before");
 getUser(1, function (user) {
   getRepositories(user.gitHubUsername, function (repos) {
-    getCommits(repo.id, function (commits) {});
+    getCommits(repo.id, function (commits) {
+      console.log("commits", commits);
+    });
+  });
+});
+console.log("After");
+
+// Asynchronous - Arrow Function
+console.log("Before");
+getUser(1, (user) => {
+  getRepositories(user.gitHubUsername, (repos) => {
+    getCommits(repo[0], (commits) => {
+      console.log("commits", commits);
+    });
   });
 });
 console.log("After");
@@ -240,7 +253,85 @@ console.log("Before");
 const user = getUser(1);
 const repos = getRepositories(user.gitHubUsername);
 const commits = getCommits(repos[0]);
-console.log("Before");
+console.log("After");
 ```
 
-So, Asynchronous code becomes deeply nested, and harder to read and maintain. This deeply nested structure is called Callback Hell. (It's hard to read, It's hard to manage, It gets worse with more steps)
+So, Asynchronous callback code becomes deeply nested, and harder to read and maintain. This deeply nested structure is called Callback Hell. (It's hard to read, It's hard to manage, It gets worse with more steps)
+
+## Named Functions to Rescue
+
+Here, Instead of Arrow Functions and the function expression, We can use the Named Function to reduce the complexity a little bit.
+
+```javascript
+// Normal Code
+console.log("Before");
+getUser(1, function (user) {
+  getRepositories(user.gitHubUsername, function (repos) {
+    getcommits(repo[0], function (commits) {
+      console.log("Commits", commits);
+    });
+  });
+});
+console.log("After");
+
+function getUser(id, callback) {
+  setTimeout(() => {
+    console.log("Reading a user from a database");
+    callback({ id: id, gitHubUsername: "mosh" });
+  }, 2000);
+}
+
+function getRepositories(username, callback) {
+  setTimeout(() => {
+    console.log("Reading Repositories from the API");
+    callback({ username: username, repositories: ["repo1", "repo2", "repo3"] });
+  }, 2000);
+}
+
+function getcommits(repo, callback) {
+  setTimeout(() => {
+    console.log("Reading Commits from Repositories");
+    callback({ repo: repo, commits: ["commit", "commit2", "commit3"] });
+  }, 2000);
+}
+```
+
+```javascript
+// Named Function Code
+console.log("Before");
+getUser(1, getRepositories1);
+console.log("After");
+
+function getRepositories1(user) {
+  getRepositories(user.gitHubUsername, getCommits1);
+}
+
+function getCommits1(repos) {
+  getcommits(repo[0], displayCommits1);
+}
+
+function displayCommits1(commits) {
+  console.log("Commits", commits);
+}
+
+function getUser(id, callback) {
+  setTimeout(() => {
+    console.log("Reading a user from a database");
+    callback({ id: id, gitHubUsername: "mosh" });
+  }, 2000);
+}
+
+function getRepositories(username, callback) {
+  setTimeout(() => {
+    console.log("Reading Repositories from the API");
+    callback({ username: username, repositories: ["repo1", "repo2", "repo3"] });
+  }, 2000);
+}
+
+function getcommits(repo, callback) {
+  setTimeout(() => {
+    console.log("Reading Commits from Repositories");
+    callback({ repo: repo, commits: ["commit", "commit2", "commit3"] });
+  }, 2000);
+}
+```
