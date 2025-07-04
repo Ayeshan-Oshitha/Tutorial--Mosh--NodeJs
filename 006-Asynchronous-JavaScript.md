@@ -335,3 +335,39 @@ function getcommits(repo, callback) {
   }, 2000);
 }
 ```
+
+## Promises
+
+A **Promise** is an object that represents the eventual result of an asynchronous operation. When the asynchronous operation completes, the promise will either return a **value** (if successful) or an **error** (if something goes wrong). In essence, a promise is a way to handle the result of an asynchronous task in the future.
+
+A promise can be in one of **three states**:
+
+1. Pending:
+
+   This is the initial state when the promise is created. At this point, the asynchronous operation has started but hasn't completed yet.
+
+2. Fulfilled (or Resolved):
+
+   The asynchronous operation completed successfully, and the promise now holds a resulting value.
+
+3. Rejected:
+
+   The asynchronous operation failed, and the promise holds an error or reason for the failure.
+
+```javascript
+const p = new Promise(function (resolve, reject) {
+  // Kick off some async work
+  // ...
+
+  setTimeout(() => {
+    resolve({ id: 1, username: "mosh" });
+    // reject(new Error('message'))
+  }, 2000);
+});
+
+p.then((result) => {
+  console.log(result);
+}).catch((error) => {
+  console.log(error.message);
+});
+```
