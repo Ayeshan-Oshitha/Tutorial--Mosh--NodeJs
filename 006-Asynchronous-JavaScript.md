@@ -258,7 +258,7 @@ console.log("After");
 
 So, Asynchronous callback code becomes deeply nested, and harder to read and maintain. This deeply nested structure is called Callback Hell. (It's hard to read, It's hard to manage, It gets worse with more steps)
 
-## Named Functions to Rescue
+# Named Functions to Rescue
 
 Here, Instead of Arrow Functions and the function expression, We can use the Named Function to reduce the complexity a little bit.
 
@@ -336,7 +336,7 @@ function getcommits(repo, callback) {
 }
 ```
 
-## Promises
+# Promises
 
 A **Promise** is an object that represents the eventual result of an asynchronous operation. When the asynchronous operation completes, the promise will either return a **value** (if successful) or an **error** (if something goes wrong). In essence, a promise is a way to handle the result of an asynchronous task in the future.
 
@@ -372,7 +372,7 @@ p.then((result) => {
 });
 ```
 
-## Replacing Callback with Promises
+# Replacing Callback with Promises
 
 ```javascript
 // Before Code - Callback Code
@@ -451,7 +451,7 @@ function getcommits(repo) {
 }
 ```
 
-## Consuming Promises
+# Consuming Promises
 
 ```javascript
 console.log("Before");
@@ -492,3 +492,63 @@ function getcommits(repo) {
   });
 }
 ```
+
+# Creating Settled Promises
+
+Sometimes, we want to create a Promise that is already **resolved** or **rejected**. This is especially useful when writing **unit tests**, where we need to **simulate the outcome** of an asynchronous operation—such as calling a web server or fetching data from a database—without actually performing the operation.
+
+By using `Promise.resolve()` or `Promise.reject()`, we can quickly create a promise that mimics a successful or failed asynchronous task.
+
+You can see this approach used in the `promise-api.js`
+
+# Parallel Promises
+
+Sometimes, we want to run multiple asynchronous operations **in parallel**, and then perform an action **after all of them have completed successfully**. For example, calling the Facebook API and the Twitter API at the same time, and doing something once **both** responses are received.
+
+To do this, we can use `Promise.all()`.
+
+With `Promise.all()`, all the promises are run in parallel, and it waits until **all of them are resolved**. If **even one** of the promises is **rejected**, `Promise.all()` will **fail** and return an error.
+
+```javascript
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log("Asynchronous Operation 1...");
+    resolve(1);
+  }, 4000);
+});
+
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log("Asynchronous Operation 2...");
+    resolve(2);
+  }, 4000);
+});
+
+Promise.all([p1, p2])
+  .then((result) => console.log("Result : ", result))
+  .catch((error) => console.log(error.message));
+```
+
+Output is :
+
+```bash
+Asynchronous Operation 1...
+Asynchronous Operation 2...
+Result :  [ 1, 2 ]
+```
+
+If we want to do something **as soon as the first promise is resolved**, we can use `Promise.race()` (or `Promise.any()` depending on the use case).
+
+- Promise.race() returns the result of the **first promise to settle**, whether it's **fulfilled or rejected**.
+
+- Promise.any() returns the result of the **first promise that is fulfilled**, and **ignores rejections** unless all promises fail.
+
+### Extra -> `Promise.any()` – What does "ignores rejections unless all promises fail" mean?
+
+It means:
+
+- If you pass multiple promises to `Promise.any()`, it will wait for **any one of them to be fulfilled (resolved)**.
+
+- If one or more of them **reject**, it will simply **ignore** those and keep waiting for a successful (resolved) one.
+
+- But if **all the promises reject**, then `Promise.any()` itself will also reject — with an `AggregateError` containing all the errors.
