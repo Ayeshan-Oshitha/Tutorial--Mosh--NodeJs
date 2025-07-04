@@ -1,12 +1,9 @@
-// Normal Code
 console.log("Before");
-getUser(1, function (user) {
-  getRepositories(user.gitHubUsername, function (repos) {
-    getcommits(repo[0], function (commits) {
-      console.log("Commits", commits);
-    });
-  });
-});
+getUser(1)
+  .then((user) => getRepositories(user.gitHubUsername)) // getUser returns a user object. If successful, call getRepositories
+  .then((repos) => getcommits(repos[0])) // getRepositories returns a repositories object. If successful, call getCommits
+  .then((commits) => console.log("Commits", commits)) // getCommits returns commits. If successful, log them
+  .catch((error) => console.log("Error :", error.message)); // // If any of the above promises fail, catch the error and log the error message
 console.log("After");
 
 function getUser(id) {
