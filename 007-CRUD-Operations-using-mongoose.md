@@ -45,3 +45,24 @@ async function getCourses() {
   console.log(courses_3);
 }
 ```
+
+# Comparison Query Operator
+
+In MongoDB, there are some operators for comparing values. Since Mongoose is built on top of the MongoDB driver, the standard operators that MongoDB understands are also available in Mongoose.
+
+- eq – equal
+- ne – not equal
+- gt – greater than
+- gte – greater than or equal
+- lt – less than
+- lte – less than or equal
+- in – in
+- nin – not in
+
+```javascript
+// Courses with price greater than 10 and less than or equal to 20
+const courses = await Course.find({ price: { $gt10, $lte: 20 } });
+
+// Courses with price either 10, 25, or 20
+const courses = await Course.find({ price: { $in: [10, 25, 20] } });
+```
