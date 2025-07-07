@@ -5,10 +5,21 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connected to MongoDB"));
 
+// Schema
 const courseSchema = new mongoose.Schema({
   name: String,
   author: String,
   tags: [String],
   date: { type: Date, default: Date.now },
   isPublished: Boolean,
+});
+
+// Model
+const Course = mongoose.model("Course", courseSchema);
+
+const course = new Course({
+  name: "Node.js Course",
+  author: "Mosh",
+  tags: ["node", "backend"],
+  isPublished: true,
 });

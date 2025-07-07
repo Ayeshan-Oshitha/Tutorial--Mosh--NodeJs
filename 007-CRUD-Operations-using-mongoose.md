@@ -23,3 +23,7 @@ In MongoDB, it simply returns the JSON object, so we can transfer it — no conv
 - Schema – Defines the shape (structure) of the data in a collection / shape of the document in a collection
 
 - Scheman Types - String, Number, Date, Buffer, Boolean, objectID, Array
+
+# Model
+
+Model is created from the schema and acts as a class you use to interact with the database.( It lets you create, read, update, and delete records based on the schema)
