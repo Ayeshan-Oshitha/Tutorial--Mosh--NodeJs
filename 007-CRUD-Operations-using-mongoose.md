@@ -66,3 +66,17 @@ const courses = await Course.find({ price: { $gt10, $lte: 20 } });
 // Courses with price either 10, 25, or 20
 const courses = await Course.find({ price: { $in: [10, 25, 20] } });
 ```
+
+# Logical Query Operators
+
+- or — Matches documents that satisfy at least one of the given conditions.
+
+- and — Matches documents that satisfy all the given conditions.
+
+```javascript
+// Find courses where the author is "mosh" OR the course is published
+const courses = await Course.find().or([
+  { author: "mosh" },
+  { isPublished: true },
+]);
+```
