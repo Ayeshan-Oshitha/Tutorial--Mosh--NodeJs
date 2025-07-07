@@ -80,3 +80,21 @@ const courses = await Course.find().or([
   { isPublished: true },
 ]);
 ```
+
+# Regular Expressions
+
+If you need more control when filtering strings (e.g., starts with, ends with, contains, case-insensitive), you can use regular expressions (RegEx).
+
+```javascript
+// Find courses where the author's name STARTS with "Mosh"
+const courses = await Course.find({ author: /^Mosh/ });
+
+// Find courses where the author's name ENDS with "Hamedani"
+const courses = await Course.find({ author: /Hamedani$/ });
+
+// Same as above but case-insensitive (e.g., matches "hamedani", "Hamedani", etc.)
+const courses = await Course.find({ author: /Hamedani$/i });
+
+// Find courses where the author's name CONTAINS "Mosh"
+const courses = await Course.find({ author: /.*Mosh.*/ });
+```
