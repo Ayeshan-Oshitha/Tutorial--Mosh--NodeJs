@@ -27,3 +27,21 @@ In MongoDB, it simply returns the JSON object, so we can transfer it — no conv
 # Model
 
 Model is created from the schema and acts as a class you use to interact with the database.( It lets you create, read, update, and delete records based on the schema)
+
+# Querying Documents
+
+```javascript
+async function getCourses() {
+  const courses_1 = await Course.find();
+  console.log(courses_1);
+
+  const courses_2 = await Course.find({ author: "Mosh", isPublished: true });
+  console.log(courses_2);
+
+  const courses_3 = await Course.find()
+    .limit(10)
+    .sort({ name: 1 })
+    .select({ name: 1, tags: 1 });
+  console.log(courses_3);
+}
+```
