@@ -98,3 +98,9 @@ const courses = await Course.find({ author: /Hamedani$/i });
 // Find courses where the author's name CONTAINS "Mosh"
 const courses = await Course.find({ author: /.*Mosh.*/ });
 ```
+
+# Update - Query first vs Update first approach
+
+**Query First Approach**: Use this when you receive input from the client and need to validate the update before applying it. For example: If a course is already published, you might want to prevent changing the author.
+
+**Update First Approach**: Use this when you want to directly update one or multiple documents without validation. This is ideal for bulk updates or when using MongoDB update operators like `$inc, $min, $set`, etc.
