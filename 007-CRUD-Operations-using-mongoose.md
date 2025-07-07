@@ -13,3 +13,13 @@ In MongoDB, it simply returns the JSON object, so we can transfer it — no conv
 - Add it to the PATH
 
 - Create the C:/data/db directory as the default storage location
+
+# Schermas
+
+- Collection – Like a table in SQL databases
+
+- Document – Like a row in relational databases
+
+- Schema – Defines the shape (structure) of the data in a collection / shape of the document in a collection
+
+- Scheman Types - String, Number, Date, Buffer, Boolean, objectID, Array
