@@ -30,10 +30,13 @@ async function createCourse() {
 }
 
 async function getCourses() {
-  const courses = await Course.countDocuments({
-    author: "Mosh",
-    isPublished: true,
-  });
+  const pageNumber = 2;
+  const pageSize = 10;
+
+  const courses = await Course.find({ author: "Mosh", isPublished: true })
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize);
+
   console.log(courses);
 }
 
