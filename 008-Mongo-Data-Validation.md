@@ -14,3 +14,23 @@ We can also explicitly trigger validation using .validate() or .validateSync(), 
 - We should validate the request body (e.g., using Joi) when the client sends the data — this ensures that incoming data is correct before processing.
 
 - We should also validate the data at the database layer (e.g., using Mongoose schema validation), because errors can happen at any point, and we should not rely only on client-side or request-level validation.
+
+# Built-in Validator
+
+- **required**
+
+  - Can be set to a boolean (true or false).
+  - Can also be set to a _function_ to make the field conditionally required.
+  - Note: You must use a _regular function_, not an arrow function, because arrow functions don't have their own this context.
+
+- **For String fields, you can use:**
+
+  - minlength – minimum number of characters
+  - maxlength – maximum number of characters
+  - match – to validate with a regex pattern
+  - enum – to allow only specific values
+
+- **For Number and Date fields, you can use:**
+
+  - min – minimum allowed value
+  - max – maximum allowed value
