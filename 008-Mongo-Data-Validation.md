@@ -34,3 +34,7 @@ We can also explicitly trigger validation using .validate() or .validateSync(), 
 
   - min – minimum allowed value
   - max – maximum allowed value
+
+# Custom Validators
+
+Sometimes, the built-in validators are not enough, so we need to create custom validation logic.
