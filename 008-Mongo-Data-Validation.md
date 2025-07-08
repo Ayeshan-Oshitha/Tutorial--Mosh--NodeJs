@@ -38,3 +38,23 @@ We can also explicitly trigger validation using .validate() or .validateSync(), 
 # Custom Validators
 
 Sometimes, the built-in validators are not enough, so we need to create custom validation logic.
+
+# Async Validator
+
+Sometumes our custom validation logic may invlev someting oiek reading data from our database or from a remote HTTP service. So resulty weill not vailable at once In that case we need asynchronoys validator.
+
+Earlier, custom validator logic used **callbacks** for asynchronous operations. But now, it uses **Promises** or **async/await** instead.
+
+```javascript
+// async/ await version
+tags: {
+  type: Array,
+  validate: {
+    validator: async function (v) {
+      await new Promise((r) => setTimeout(r, 4000));
+      return v && v.length > 0;
+    },
+    message: "A course should have at least one tag",
+  },
+}
+```

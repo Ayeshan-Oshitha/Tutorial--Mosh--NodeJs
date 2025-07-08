@@ -16,8 +16,13 @@ const courseSchema = new mongoose.Schema({
   tags: {
     type: Array,
     validate: {
+      isAsync: true,
       validator: function (v) {
-        return v && v.length > 0;
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(v && v.length > 0);
+          }, 4000);
+        });
       },
       message: "A course should have at least one tag",
     },
@@ -36,8 +41,8 @@ const Course = mongoose.model("Course", courseSchema);
 
 async function createCourse() {
   const course = new Course({
-    name: "Angular Course",
-    category: "web",
+    name: "React Native Course",
+    category: "mobile",
     author: "Mosh",
     tags: [],
     isPublished: true,
