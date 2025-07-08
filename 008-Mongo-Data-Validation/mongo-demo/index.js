@@ -11,6 +11,8 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ["web", "mobile", "network"],
+    lowercase: true,
+    trim: true,
   },
   author: String,
   tags: {
@@ -34,6 +36,9 @@ const courseSchema = new mongoose.Schema({
     required: () => {
       return this.isPublished;
     },
+    min: 10,
+    get: (v) => Math.round(v),
+    set: (v) => Math.round(v),
   },
 });
 
@@ -42,11 +47,11 @@ const Course = mongoose.model("Course", courseSchema);
 async function createCourse() {
   const course = new Course({
     name: "React Native Course",
-    category: "-",
+    category: "Web",
     author: "Mosh",
-    tags: [],
+    tags: ["FrontEnd"],
     isPublished: true,
-    price: 15,
+    price: 15.8,
   });
 
   try {

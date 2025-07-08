@@ -70,3 +70,19 @@ catch (ex) {
     }
   }
 ```
+
+# Schema Type Options
+
+In addition to validation properties, Mongoose schema types also support other useful options:
+
+- String fields:
+
+  - lowercase: converts the value to lowercase automatically
+  - uppercase: converts the value to uppercase automatically
+  - trim: removes leading and trailing whitespace
+
+- Number fields:
+
+  - min, max: for validation
+  - get, set: use custom **getters and setters** to transform the value
+  - Math.round: can be used in a setter to round values automatically
