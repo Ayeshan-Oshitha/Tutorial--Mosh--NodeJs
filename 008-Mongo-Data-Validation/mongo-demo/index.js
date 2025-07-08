@@ -42,7 +42,7 @@ const Course = mongoose.model("Course", courseSchema);
 async function createCourse() {
   const course = new Course({
     name: "React Native Course",
-    category: "mobile",
+    category: "-",
     author: "Mosh",
     tags: [],
     isPublished: true,
@@ -52,8 +52,10 @@ async function createCourse() {
   try {
     const result = await course.save();
     console.log(result);
-  } catch (error) {
-    console.log(error.message);
+  } catch (ex) {
+    for (field in ex.errors) {
+      console.log(ex.errors[field].message);
+    }
   }
 }
 

@@ -58,3 +58,15 @@ tags: {
   },
 }
 ```
+
+# Validation Errors
+
+When we iterate over the `errors` object in a validation exception, we can get the **full details of each individual validation error**.
+
+```javascript
+catch (ex) {
+    for(field in ex.errors){
+      console.log(ex.errors[field])
+    }
+  }
+```
