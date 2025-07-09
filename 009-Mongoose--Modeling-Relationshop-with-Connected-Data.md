@@ -43,7 +43,7 @@ When choosing one, we should consider the **trade-off between query performance 
 
 So, the first approach gives **consistency**, while the second approach gives **performance**.
 
-3. Hybrid Approach
+### 3. Hybrid Approach
 
 Imagine the author has 50 properties. So, we maintain a separate collection for the author. But in the course document, we embed just a few properties.
 
@@ -97,3 +97,43 @@ const courses = await Course.find().populate("author", "name -_id");
 - If we use `.populate("author", "name")`, it will return **only the** `name` **field** of the author + `_id`.
 
 - If we use `.populate("author", "name -\_id")`, it will return the `name` **field only and exclude** the `\_id` field.
+
+# Embedding Documents
+
+When embedding documents (i.e., subdocuments), they behave like normal documents in many ways. Most of the features available for regular documents—such as **validation** —are also supported for subdocuments.
+
+**Important Notes:**
+
+- **Subdocuments cannot be saved, updated, or deleted independently**. They must be modified through their **parent document**.
+
+- However, you can **still update a subdocument directly** using MongoDB's $set or $unset operations(using `updateOne` method).
+
+#### Example: Updating a Subdocument
+
+```JAVASCRIPT
+async function updateAuthor(courseId) {
+  const course = await Course.updateOne(
+    { _id: courseId },
+    {
+      $set: {
+        "author.name": "John Smith",
+      },
+    }
+  );
+}
+```
+
+#### Example: Removing a Subdocument
+
+```javascript
+async function updateAuthor(courseId) {
+  const course = await Course.updateOne(
+    { _id: courseId },
+    {
+      $unset: {
+        author: "",
+      },
+    }
+  );
+}
+```
