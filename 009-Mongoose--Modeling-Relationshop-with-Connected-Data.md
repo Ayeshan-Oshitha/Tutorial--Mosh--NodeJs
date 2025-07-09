@@ -63,3 +63,37 @@ let course = {
 ```
 
 This approach **balances query performance and consistency**, but requires careful update logic to avoid inconsistencies.
+
+# Population
+
+```javascript
+const Author = mongoose.model(
+  "Author",
+  new mongoose.Schema({
+    name: String,
+    bio: String,
+    website: String,
+  })
+);
+
+const Course = mongoose.model(
+  "Course",
+  new mongoose.Schema({
+    name: String,
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Author",
+    },
+  })
+);
+
+const courses = await Course.find().populate("author", "name -_id");
+```
+
+- If we don’t use the `.populate()` method or `populate()` with no parameters, Mongoose will only return the author’s ObjectId in the result.
+
+- If we use `.populate("author")`, it will return the entire author document.
+
+- If we use `.populate("author", "name")`, it will return **only the** `name` **field** of the author + `_id`.
+
+- If we use `.populate("author", "name -\_id")`, it will return the `name` **field only and exclude** the `\_id` field.
