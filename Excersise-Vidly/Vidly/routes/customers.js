@@ -1,29 +1,6 @@
 const express = require("express");
-const Joi = require("joi");
-const mongoose = require("mongoose");
-
 const router = express.Router();
-
-const customerSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 50,
-  },
-  isGold: {
-    type: Boolean,
-    default: false,
-  },
-  phone: {
-    type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 50,
-  },
-});
-
-const Customer = mongoose.model("Customer", customerSchema);
+const { Customer, validateRequest, validateId } = require("../models/customer");
 
 router.get("/", async (req, res) => {
   const customers = await Customer.find().sort("name");
@@ -31,8 +8,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  // Validate ID format
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  if (!validateId(req.params.id)) {
     return res.status(400).send("Invalid ID format.");
   }
 
@@ -71,7 +47,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  if (!validateId(req.params.id)) {
     return res.status(400).send("Invalid ID format.");
   }
 
@@ -110,7 +86,7 @@ router.put("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  if (!validateId(req.params.id)) {
     return res.status(400).send("Invalid ID format.");
   }
 
@@ -122,15 +98,5 @@ router.delete("/:id", async (req, res) => {
   }
   res.send(customer);
 });
-
-function validateRequest(customer) {
-  const schema = Joi.object({
-    name: Joi.string().trim().min(3).max(50).required(),
-    isGold: Joi.boolean(),
-    phone: Joi.string().trim().min(5).max(50).required(),
-  });
-
-  return schema.validate(customer);
-}
 
 module.exports = router;
