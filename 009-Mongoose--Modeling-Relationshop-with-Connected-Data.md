@@ -141,3 +141,15 @@ async function updateAuthor(courseId) {
 # Using an Array of SubDocuments
 
 See the Codes
+
+---
+
+# My Note
+
+When using the **hybrid approach** in MongoDB/Mongoose (i.e., embedding part of a referenced document):
+
+- If the **embedded document** (e.g., `customer`) has **only a few properties** (like 2–3), we can directly embed the existing schema into the parent (e.g., `rental`). This makes it simple, and all relevant data is shown when retrieving the rental.
+
+- However, if the **original document** (e.g., `customer`) contains **many properties** (e.g., 50+ fields), it's better **not to embed the full customer schema** into `rental`. Instead, we should create a **lightweight sub-schema** (with only the necessary fields, such as `_id`, `name`, and `phone`) to embed into the rental.
+
+This keeps the rental document clean and ensures that only the **necessary customer details are returned when querying rentals** — improving performance and clarity.

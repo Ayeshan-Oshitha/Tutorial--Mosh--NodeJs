@@ -89,7 +89,7 @@ In addition to validation properties, Mongoose schema types also support other u
 
 ---
 
-### My Notes
+# My Notes
 
 - We should use both Joi as well as Mongoose validators to check the data. (✅ Joi is used to validate the request body, and ✅ Mongoose validators are used to validate the data when saving to the database.)
 
