@@ -142,6 +142,41 @@ async function updateAuthor(courseId) {
 
 See the Codes
 
+# Transactions
+
+In **Relational Databases,** there is a concept called **Transaction**. This basically means a group of operations that should be performed as a **single unit**.
+
+For example, when we place an order:
+
+- The order is inserted into the Order table.
+
+- The product count is deducted in the Product table.
+
+So we are working with **two tables**. All these operations must be completed together. If one operation fails, **all operations should be rolled back**, and the database should return to its original state. This helps maintain **data integrity**.
+
+But in **Mongoose (MongoDB)**, there isn’t a built-in transaction system like in relational databases. Instead, MongoDB has something called a **Two-Phase Commit**, which is more **complex** to implement manually.
+
+But there is an **npm package called** `fawn` that gives us a way to use transaction-like behavior. Under the hood, it uses the Two-Phase Commit strategy.
+
+Note: When using **Fawn**, we work **directly with collections**, not through Mongoose models.
+
+```javascript
+await new Fawn.Task()
+  .save("rentals", rental) // working directly with collection(not models). Plural and lower case name
+  .update(
+    "movies",
+    { _id: movie._id },
+    {
+      $inc: { numberInStock: -1 },
+    }
+  )
+  .run();
+```
+
+## Latest Update - MongoDB and mongoose supports the transactions
+
+Avoid using Fawn, as it is outdated and no longer maintained. Instead, use MongoDB transactions, which are now fully supported and provide a modern, reliable way to perform multi-document operations safely.
+
 ---
 
 # My Note

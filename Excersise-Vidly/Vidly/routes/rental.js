@@ -1,8 +1,8 @@
 const { Rental, validateRental } = require("../models/rental");
 const { Movie } = require("../models/movie");
 const { Customer } = require("../models/customer");
-const mongoose = require("mongoose");
 const express = require("express");
+const { mongoose } = require("mongoose");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -44,10 +44,34 @@ router.post("/", async (req, res) => {
     },
   });
 
+  // Not working MongoDB transactions Local ,
+  // const session = await mongoose.startSession();
+  // session.startTransaction();
+
+  // try {
+  //   const result = await rental.save({ session });
+
+  //   movie.numberInStock--;
+  //   await movie.save({ session });
+
+  //   await session.commitTransaction();
+  //   session.endSession();
+
+  //   res.send(result);
+  // } catch (error) {
+  //   await session.abortTransaction();
+  //   session.endSession();
+  //   console.error("error is : ", error);
+  //   res.status(500).send("Something failed...");
+  // }
+
+  // No Transaction version - for demo
   const result = await rental.save();
 
   movie.numberInStock--;
   await movie.save();
 
-  res.send(rental);
+  res.send(result);
 });
+
+module.exports = router;
