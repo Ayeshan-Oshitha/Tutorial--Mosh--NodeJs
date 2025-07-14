@@ -1,4 +1,5 @@
 const { User, validateUser } = require("../models/user");
+const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const express = require("express");
 
@@ -15,10 +16,13 @@ router.post("/", async (req, res) => {
     return res.status(400).send("User already registered");
   }
 
+  const salt = await bcrypt.genSalt(10);
+  const hashed = await bcrypt.hash(req.body.password, salt);
+
   const newUser = new User({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password,
+    password: hashed,
   });
 
   // Alternatively, you can use Lodash's `pick` method to create the new user object
