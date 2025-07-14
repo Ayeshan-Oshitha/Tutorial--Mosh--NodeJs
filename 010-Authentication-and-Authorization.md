@@ -11,3 +11,9 @@
   - **Command** - emphasizes the intent to perform an action.
 
   - **Request** - Refers to a custom operation that doesn't map to a standard REST resource.
+
+# Registering User
+
+findById(id) - Used to find a document by its \_id field only
+
+findOne(filter) - Used to find a document matching any condition(s)
