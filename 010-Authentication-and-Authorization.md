@@ -17,3 +17,22 @@
 findById(id) - Used to find a document by its \_id field only
 
 findOne(filter) - Used to find a document matching any condition(s)
+
+# Using Loash
+
+When returning data, we **should not return the password**. We can simply return the object without the password, and that is okay.
+
+```javascript
+res.send({
+    _id:result._id
+    name:result.name,
+    email:result.email
+});
+
+```
+
+But to do this more efficiently, we can use an external library called **`Lodash`**.
+
+Lodash provides a lot of utility functions to work with objects, numbers, arrays, and strings. It is an optimized version of the Underscore package.
+
+Also, if we want to enforce password complexity (like requiring lowercase, uppercase letters, numbers, etc.), we can use the npm package **`joi-password-complexity`**, which is built on top of Joi.

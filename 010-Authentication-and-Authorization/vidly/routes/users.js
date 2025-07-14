@@ -1,4 +1,5 @@
 const { User, validateUser } = require("../models/user");
+const _ = require("lodash");
 const express = require("express");
 
 const router = express.Router();
@@ -20,9 +21,12 @@ router.post("/", async (req, res) => {
     password: req.body.password,
   });
 
+  // Alternatively, you can use Lodash's `pick` method to create the new user object
+  // const newUser = new User(_.pick(req.body, ["name", "email", "password"]));
+
   const result = await newUser.save();
 
-  res.send(result);
+  res.send(_.pick(result, ["_id", "name", "email"]));
 });
 
 module.exports = router;
