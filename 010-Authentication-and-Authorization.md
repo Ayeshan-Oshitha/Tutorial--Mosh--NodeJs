@@ -92,3 +92,27 @@ But that is not how JWT works. The **third par**t of JWT (digital signature) is 
 So, if a malicious user gets the JWT and modifies the `admin` field to `true`, then the digital signature will be **invalid**, because the content of the JWT was modified. Now they would need a new digital signature. **But the hacker can't generate the new digital signature** because they don’t have access to the private key on the server.
 
 So, when they send the new **tampered JWT**, the server will decline that.
+
+# Storing Secrets in Environment Variables
+
+There are two main methods to store secrets in an application:
+
+#### 1. Using dotenv:
+
+Secrets are stored in a .env file, which is loaded into environment variables when the app starts.
+
+#### 2. Using configuration files:
+
+When using config files, there are two approaches:
+
+- Storing secret values directly inside the config file.
+
+- Setting secret values through environment variables, which can be done either by:
+
+  - Manually setting them in the terminal before running the app (need to set these environment variables manually every time before running the app, which can be repetitive and inconvenient),
+
+  - Loading them from another .env file.
+
+Using dotenv is easy and convenient for **managing secrets locally**. However, configuration files help organize and manage settings **more effectively across different environments** (such as development, testing, and production).
+
+**Note:** Once you call `require("dotenv").config()`; in your main entry file (e.g., index.js), all environment variables from the .env file are loaded into process.env, and you can access them from any other file in the project.
