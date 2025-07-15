@@ -1,3 +1,4 @@
+const auth = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
 const { Customer, validateRequest, validateId } = require("../models/customer");
@@ -21,7 +22,7 @@ router.get("/:id", async (req, res) => {
   res.send(customer);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validateRequest(req.body);
 
   if (error) {
@@ -46,7 +47,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   if (!validateId(req.params.id)) {
     return res.status(400).send("Invalid ID format.");
   }
@@ -85,7 +86,7 @@ router.put("/:id", async (req, res) => {
   return res.send(customer);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   if (!validateId(req.params.id)) {
     return res.status(400).send("Invalid ID format.");
   }
