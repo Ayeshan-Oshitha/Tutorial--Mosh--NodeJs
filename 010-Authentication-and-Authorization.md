@@ -79,13 +79,11 @@ In JWT, payloads include the public properties (data) about the user.
 
 <img src="./Images/image-11.png" width="600">
 
-#### Real World Scenario
+### Real World Scenario
 
-**Q** -
+**Q** - Is the above scenario secure? Anyone can set themselves as admin and they will be treated as admins?
 
-Is the above scenario secure? Anyone can set themselves as admin and they will be treated as admins?
-
-**A**
+**Answer -**
 
 But that is not how JWT works. The **third par**t of JWT (digital signature) is created based on the content of the JSON Web Token along with a secret or private key. This **secret or private key** is stored on the server.
 
@@ -122,3 +120,31 @@ Using dotenv is easy and convenient for **managing secrets locally**. However, c
 When we use custom headers in our response, we often prefix them with **`x-`**, like `x-auth-token`.
 
 This was required in the past, but now it's not necessary. Still, many developers and companies continue to use it out of habit and for consistency.
+
+# Encapsulating Logic in mongoose.
+
+We should move the `generateAuthToken` function to one place. The easiest way might seem like creating a separate function in another file and passing the necessary parameters to it. But **that's not a good design**.
+
+In programming, there's a principle called the **Information Expert Principle**. This means we should assign responsibility to the part of the system that has the necessary information and knows how to do the task. (Just like in a restaurant — only the _chef_ cooks, because they have the knowledge and skills. A _waiter_ shouldn't do the cooking.)
+
+So in our case, to generate a JWT, we need **user data**. And only the **User model** has that data. That's why the `generateAuthToken` function should stay in the User model — it's the right place according to the principle.
+
+---
+
+### Explanation of `userSchema.methods.generateAuthToken = function () { ... }`
+
+This line adds a method to the **user schema**. Any document (user instance) created from this schema will have this method available.
+
+This is a regular function (not an arrow function!) because it uses `this`. Inside the function, this refers to the **individual user document** (e.g., a user from the database)
+
+---
+
+**Q** - What happens if you use an arrow function for a Mongoose method?
+
+**A** - In **arrow functions**, `this` is **not bound to the object** that calls the method.Instead, `this` refers to the **outer scope**/ parent (in this case, likely the global object or the module scope).So `this._id` will be `undefined`, and your JWT will fail or include `undefined` as `_id`.
+
+---
+
+**Q** - If `userSchema` doesn’t have `_id`, how does `this._id` work in the method?
+
+**A** - Mongoose automatically adds an \_id field to every schema by default. (Every document in MongoDB must have a unique `_id`. Mongoose includes this field for you — you don’t need to define it manually)
