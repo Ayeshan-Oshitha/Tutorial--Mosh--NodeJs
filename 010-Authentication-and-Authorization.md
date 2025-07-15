@@ -116,3 +116,9 @@ When using config files, there are two approaches:
 Using dotenv is easy and convenient for **managing secrets locally**. However, configuration files help organize and manage settings **more effectively across different environments** (such as development, testing, and production).
 
 **Note:** Once you call `require("dotenv").config()`; in your main entry file (e.g., index.js), all environment variables from the .env file are loaded into process.env, and you can access them from any other file in the project.
+
+# Setting Response Headers
+
+When we use custom headers in our response, we often prefix them with **`x-`**, like `x-auth-token`.
+
+This was required in the past, but now it's not necessary. Still, many developers and companies continue to use it out of habit and for consistency.
