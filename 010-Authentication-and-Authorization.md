@@ -148,3 +148,57 @@ This is a regular function (not an arrow function!) because it uses `this`. Insi
 **Q** - If `userSchema` doesn’t have `_id`, how does `this._id` work in the method?
 
 **A** - Mongoose automatically adds an \_id field to every schema by default. (Every document in MongoDB must have a unique `_id`. Mongoose includes this field for you — you don’t need to define it manually)
+
+# Logging out
+
+When loggong out, we donlt need to creeat a seperate router, Because we don't store the toke(access token) in the server / db. So for loghout feature , simple in teh client side, we dlete the token form the client ( loocla strage o r where it is stired)
+
+Note - We should not stoire any token( especiually we shoudl not store the accces stoken, abECAUS ETEH CLIENT GET IT, THEY CNA PERFORM THE ACTION BEHALF OF THE. sO ACCESS TOKEN SHGOUEL BE SHORT LIEV AND SHOUEL NOT STOIRED IN THE DB)
+
+---
+
+When using refresh tokens, there are two common ways to create them.
+
+## 1. Using JWT refresh tokens
+
+- The refresh token is a **JWT token** containing user ID and expiration time.
+
+- You **do NOT store the refresh token in the database**.
+
+- When the client sends the refresh token:
+
+  - The server validates the token using the secret key.
+
+  - Extracts the user ID from the token payload.
+
+  - If valid, issues a new access token for that user.
+
+## 2. Using random string refresh tokens
+
+- The refresh token is a **randomly generated string**.
+
+- Before storing it in the database, you **hash the token** (e.g., with SHA-256).
+
+- You store the **hashed token and expiration time** in the database.
+
+- You send the **plain (original) token** to the client.
+
+- When the client sends the refresh token back:
+
+  - The server hashes the received token the same way.
+
+  - Searches the database for the hashed token.
+
+  - If found and valid and didn't expired, it identifies the user and issues a new access token.
+
+For **password hashing**, we use a **different random salt for each password**. This salt is stored along with the hashed password. When a user tries to log in, we** first extract the salt from the stored hashed password**, then rehash the entered plain password using that same salt. If the resulting hash matches the stored one, the password is correct. This approach ensures that even if two users have the same password, their stored hashes will be different due to different salts, making it more secure.
+
+For **refresh tokens**, we usually don't use a random salt. The refresh token itself is a **random high-entropy string**, so just hashing it (e.g., using SHA-256) is typically enough. When we receive the refresh token from the client, we **hash it using the same hashing method**, and compare it with the stored hashed token in the database. **If the one of hashed token in the database matches the newly hashed token** from the client, and it is not expired, then the token is valid(using that, we can identify who is the user and can generate a new access token). [ For extra security, we can use a **fixed secret salt** (e.g., from a .env file) and include it in the hashing process — this way, even if someone gets access to the plain token, they can’t reverse-engineer the hash without the server's secret. ]
+
+My method - uses a JWT method for refresh token, then we don’t need to store anything in DB.
+
+Logout – If we use a JWT for the refresh token, we only need to delete it from the client side. But if we use a random string, we must delete the token and its expiry data from the database during logout.
+
+---
+
+If the CSRF token is stored in a cookie, the browser automatically includes it with every request to the server. In this case, the client **does not need to manually add the token** to the request — the browser handles sending the cookie for you.
