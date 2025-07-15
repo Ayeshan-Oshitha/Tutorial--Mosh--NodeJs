@@ -66,3 +66,29 @@ During comparison of the plain text password with the hashed password, bcrypt ex
 # Authenticating Users
 
 **Note** - When Validating Passwords, We use `bcrypt.compare` method. In there, Bcrypt doesn't decrypt the stored password. Instead, it extracts the salt from the stored hash, re-hashes the plain text password using that salt, and compares the result with the stored hash to validate the user.
+
+# JSON Web Token
+
+JSON Web Token is a long string that identifies a user. (As a metaphor, we can think of it as our driver's license.)
+
+When the user logs in, the server generates the JSON Web Token. We give it to the client. And then, every time the client reaches the API endpoints, they should show their JWT token (_driver's license_) to validate.
+
+JWT tokens have 3 parts: **Header, Payload**, and **Digital Signature**.
+
+In JWT, payloads include the public properties (data) about the user.
+
+<img src="./Images/image-11.png" width="600">
+
+#### Real World Scenario
+
+**Q** -
+
+Is the above scenario secure? Anyone can set themselves as admin and they will be treated as admins?
+
+**A**
+
+But that is not how JWT works. The **third par**t of JWT (digital signature) is created based on the content of the JSON Web Token along with a secret or private key. This **secret or private key** is stored on the server.
+
+So, if a malicious user gets the JWT and modifies the `admin` field to `true`, then the digital signature will be **invalid**, because the content of the JWT was modified. Now they would need a new digital signature. **But the hacker can't generate the new digital signature** because they don’t have access to the private key on the server.
+
+So, when they send the new **tampered JWT**, the server will decline that.
