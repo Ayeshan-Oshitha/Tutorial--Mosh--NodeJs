@@ -6,6 +6,7 @@ const express = require("express");
 
 const router = express.Router();
 
+// Login
 router.post("/", async (req, res) => {
   const { error } = validateAuth(req.body);
   if (error) {
