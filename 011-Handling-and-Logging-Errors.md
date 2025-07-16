@@ -17,3 +17,9 @@ In typical error handling, we send an error message directly in each route. Howe
 By doing this, if we ever need to change how errors are handled, we only need to update the logic in one place.
 
 In Express, error-handling middleware should be registered **after all other middleware and route handlers**.
+
+# Remove Try Catch Block
+
+Even though we use middleware in Express, we still have to write `try/catch` blocks in every route handler to handle asynchronous errors. This becomes repetitive and distracts us from focusing on the actual business logic.
+
+To solve this, we can create a reusable `try/catch` wrapper (like a template) and use it for all route handlers. This way, we can keep our code clean and focus on writing the core logic without repeating error-handling code.
