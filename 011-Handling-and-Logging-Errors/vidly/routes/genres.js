@@ -5,13 +5,12 @@ const { Genre, validateGenre } = require("../models/genre");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const genres = await Genre.find().sort("name");
     res.send(genres);
-  } catch (error) {
-    // Should log the exception too
-    res.status(500).send("Something Failed");
+  } catch (ex) {
+    next(ex);
   }
 });
 
