@@ -1,9 +1,9 @@
 require("dotenv").config();
 require("express-async-errors");
-require("./config/winston-logger");
 const mongoose = require("mongoose");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
+const winston = require("winston");
 const genres = require("./routes/genres");
 const customers = require("./routes/customers");
 const movies = require("./routes/movies");
@@ -18,6 +18,9 @@ if (!process.env.JWT_SECRET_KEY) {
   console.error("FATAL ERROR: JWT_SECRET_KEY is not defined.");
   process.exit(1);
 }
+
+winston.add(new winston.transports.File({ filename: "winston-logfile.log" }));
+winston.add(new winston.transports.Console());
 
 mongoose
   .connect("mongodb://localhost/vidly")

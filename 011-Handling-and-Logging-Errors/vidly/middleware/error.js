@@ -1,7 +1,7 @@
-const winstonLogger = require("../config/winston-logger");
+const winston = require("winston");
 
 function error(err, req, res, next) {
-  winstonLogger.warn(err.message, err);
+  winston.error(err.message, err); // Pass the error message and complete error ( Helps to print stack trace)
   res.status(500).send("Something Failed...");
 }
 
