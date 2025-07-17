@@ -35,3 +35,28 @@ So, to remove `try-catch` blocks, there are two approaches:
 1. Using a custom function (`asyncMiddleware` function)
 
 2. Using the `express-async-errors` 3rd-party package
+
+# Loggin Errors
+
+In every application, we should log the message. To do that, we can use the Winston library.
+
+const `winston = require("winston");` - This is the default logger that is exported from Winston. BUT if needed, we can create custom loggers manually (in the example we create a custom logger, but we can also use the default logger without creating a new logger). [Here logger means how it prints the data.]
+
+This logger object has transports. A transport is essentially a storage device for our logs. So Winston comes with a few pre-built transports like console (for logging messages on the console), file, HTTP (for calling HTTP endpoint for logging messages). There are also plugins for Winston for other npm packages for logging messages to places like MongoDB, CouchDB, Redis, Loggly (a very popular log analytics and monitoring service).
+
+---
+
+<img src="./Images/image-12.png" width="500">
+
+This logger object has transports. A **transport** is essentially a storage device for our logs. So Winston comes with a few pre-built transports like console (for logging messages on the console), file, HTTP (for calling HTTP endpoint for logging messages). There are also plugins for Winston for other npm packages for logging messages to places like MongoDB, CouchDB, Redis, Loggly (a very popular log analytics and monitoring service).
+
+---
+
+When logging error messages, we should set the logging levels. Logging level determines the importance of the messages we log:
+
+- error – For serious issues that cause failures or crashes
+- warn – For potential problems or important warnings
+- info – For general operational messages about application progress
+- verbose – For detailed messages, more than info but less than debug
+- debug – For debugging messages to diagnose issues
+- silly – For very detailed and fine-grained messages, usually noisy

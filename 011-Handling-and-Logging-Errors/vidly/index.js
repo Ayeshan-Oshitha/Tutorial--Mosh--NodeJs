@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("express-async-errors");
+require("./config/winston-logger");
 const mongoose = require("mongoose");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
