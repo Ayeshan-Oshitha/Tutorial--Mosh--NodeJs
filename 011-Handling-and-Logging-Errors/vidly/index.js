@@ -5,13 +5,7 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const winston = require("winston");
 require("winston-mongodb");
-const genres = require("./routes/genres");
-const customers = require("./routes/customers");
-const movies = require("./routes/movies");
-const rentals = require("./routes/rental");
-const users = require("./routes/users");
-const auth = require("./routes/auth");
-const error = require("./middleware/error");
+const routes = require("./startup/route");
 const express = require("express");
 const app = express();
 
@@ -36,8 +30,7 @@ process.on("unhandledRejection", (ex) => {
   setTimeout(() => process.exit(1), 1000);
 });
 
-const p = Promise.reject(new Error("Custom Promise Rejection Erroe"));
-p.then(() => console.log("Done"));
+routes(app);
 
 if (!process.env.JWT_SECRET_KEY) {
   console.error("FATAL ERROR: JWT_SECRET_KEY is not defined.");
@@ -52,8 +45,6 @@ mongoose
 app.set("view engine", "pug");
 app.set("views", "./views");
 
-app.use(express.json());
-
 app.get("/", (req, res) => {
   res.render("index", {
     title: "Vidly",
@@ -61,15 +52,6 @@ app.get("/", (req, res) => {
     message: "Welcome to the vidly application",
   });
 });
-
-app.use("/api/genres", genres);
-app.use("/api/customers", customers);
-app.use("/api/movies", movies);
-app.use("/api/rentals", rentals);
-app.use("/api/users", users);
-app.use("/api/auth", auth);
-
-app.use(error);
 
 const port = process.env.PORT || 3003;
 
