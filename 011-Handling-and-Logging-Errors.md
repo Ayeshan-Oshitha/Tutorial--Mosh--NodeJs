@@ -23,3 +23,15 @@ In Express, error-handling middleware should be registered **after all other mid
 Even though we use middleware in Express, we still have to write `try/catch` blocks in every route handler to handle asynchronous errors. This becomes repetitive and distracts us from focusing on the actual business logic.
 
 To solve this, we can create a reusable `try/catch` wrapper (like a template) and use it for all route handlers. This way, we can keep our code clean and focus on writing the core logic without repeating error-handling code.
+
+# Express Async Errors
+
+When we remove `try-catch` blocks, we can use an custom function (`asyncMiddleware` function ) as a try-catch wrapper. This is a valid approach.
+
+But there's another easier solution. There is a package called `express-async-errors`, so we don't need to worry about writing an async middleware function. Our async route handlers will automatically be wrapped, and any errors thrown will be caught at runtime and passed to Express's error-handling middleware. So, we don’t need to explicitly use an async middleware function.
+
+So, to remove `try-catch` blocks, there are two approaches:
+
+1. Using a custom function (`asyncMiddleware` function)
+
+2. Using the `express-async-errors` 3rd-party package
