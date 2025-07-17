@@ -1,7 +1,5 @@
-const Joi = require("joi");
-Joi.objectId = require("joi-objectid")(Joi);
-
 const logger = require("./startup/logging");
+const validation = require("./startup/validation");
 const db = require("./startup/db");
 const config = require("./startup/config");
 const routes = require("./startup/route");
@@ -11,6 +9,7 @@ const app = express();
 logger();
 config();
 db();
+validation();
 routes(app);
 
 app.set("view engine", "pug");
