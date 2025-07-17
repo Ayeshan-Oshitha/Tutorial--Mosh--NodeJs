@@ -66,3 +66,13 @@ Winston follows this log level priority (highest to lowest):
 error → warn → info → http → verbose → debug → silly
 
 When setting transports, we can set the logging error level too. If we set the level to info, it will log info, warn, and error — all higher or equal levels.
+
+# Uncaught Exceptions
+
+Our error middleware only catches exceptions that happen **inside the request processing pipeline** — so it's specific to Express. If an error is thrown **outside the context of Express**, this middleware will not be called, and our application will crash.
+
+To handle exceptions thrown **outside Express (i.e., by Node.js)**, we can use the `process` object. This `process` object is an **EventEmitter** (an EventEmitter is something that **emits events**, and we can **subscribe** to those events using the `.on()` method).
+
+One of the standard events provided by `process` is `uncaughtException`. This event is triggered when there’s an **exception in the Node.js process**, and we haven’t handled it anywhere using a **catch block**.
+
+It’s best to add the uncaughtException handler at the top of the file, right after setting up Winston logging.

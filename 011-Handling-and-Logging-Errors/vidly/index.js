@@ -15,11 +15,6 @@ const error = require("./middleware/error");
 const express = require("express");
 const app = express();
 
-if (!process.env.JWT_SECRET_KEY) {
-  console.error("FATAL ERROR: JWT_SECRET_KEY is not defined.");
-  process.exit(1);
-}
-
 winston.add(new winston.transports.File({ filename: "winston-logfile.log" }));
 winston.add(new winston.transports.Console());
 winston.add(
@@ -28,6 +23,17 @@ winston.add(
     level: "warn", // This logs both warn and error
   })
 );
+
+process.on("uncaughtException", (ex) => {
+  console.log("WE GOT AN UNCAUGHT EXCEPTION");
+  winston.error(ex.message, ex);
+  process.exit(1); // Additionely added by me - clean exit
+});
+
+if (!process.env.JWT_SECRET_KEY) {
+  console.error("FATAL ERROR: JWT_SECRET_KEY is not defined.");
+  process.exit(1);
+}
 
 mongoose
   .connect("mongodb://localhost/vidly")
