@@ -1,40 +1,14 @@
 require("dotenv").config();
-require("express-async-errors");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
-const winston = require("winston");
-require("winston-mongodb");
+
+const logger = require("./startup/logging");
 const db = require("./startup/db");
 const routes = require("./startup/route");
 const express = require("express");
 const app = express();
 
-winston.add(
-  new winston.transports.File({
-    filename: "winston-logfile.log",
-    level: "warn",
-  })
-);
-winston.add(new winston.transports.Console());
-winston.add(
-  new winston.transports.MongoDB({
-    db: "mongodb://localhost/vidly",
-    level: "warn",
-  })
-);
-
-process.on("uncaughtException", (ex) => {
-  console.log("WE GOT AN UNCAUGHT EXCEPTION");
-  winston.error(ex.message, ex);
-  setTimeout(() => process.exit(1), 1000);
-});
-
-process.on("unhandledRejection", (ex) => {
-  console.log("WE GOT AN UNHANDLED REJECTION");
-  winston.error(ex.message, ex);
-  setTimeout(() => process.exit(1), 1000);
-});
-
+logger();
 db();
 routes(app);
 
