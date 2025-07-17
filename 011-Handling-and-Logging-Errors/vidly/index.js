@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const winston = require("winston");
+require("winston-mongodb");
 const genres = require("./routes/genres");
 const customers = require("./routes/customers");
 const movies = require("./routes/movies");
@@ -21,6 +22,12 @@ if (!process.env.JWT_SECRET_KEY) {
 
 winston.add(new winston.transports.File({ filename: "winston-logfile.log" }));
 winston.add(new winston.transports.Console());
+winston.add(
+  new winston.transports.MongoDB({
+    db: "mongodb://localhost/vidly",
+    level: "warn", // This logs both warn and error
+  })
+);
 
 mongoose
   .connect("mongodb://localhost/vidly")

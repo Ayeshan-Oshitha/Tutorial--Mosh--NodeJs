@@ -60,3 +60,9 @@ When logging error messages, we should set the logging levels. Logging level det
 - verbose – For detailed messages, more than info but less than debug
 - debug – For debugging messages to diagnose issues
 - silly – For very detailed and fine-grained messages, usually noisy
+
+Winston follows this log level priority (highest to lowest):
+
+error → warn → info → http → verbose → debug → silly
+
+When setting transports, we can set the logging error level too. If we set the level to info, it will log info, warn, and error — all higher or equal levels.
