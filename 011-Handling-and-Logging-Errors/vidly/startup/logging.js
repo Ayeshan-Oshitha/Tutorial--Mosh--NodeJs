@@ -1,5 +1,6 @@
 require("express-async-errors");
 const winston = require("winston");
+const { format, transports } = winston;
 require("winston-mongodb");
 
 // This module is responsible for handling and logging errors using Winston.
@@ -13,7 +14,23 @@ function logger() {
       level: "warn",
     })
   );
-  winston.add(new winston.transports.Console());
+
+  winston.add(
+    new transports.Console({
+      level: "silly",
+      format: format.combine(
+        format.colorize(),
+        format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+        format.errors({ stack: true }),
+        format.printf(({ level, message, stack }) => {
+          return stack
+            ? ` ${level}: ${message}\n${stack}`
+            : ` ${level}: ${message}`;
+        })
+      ),
+    })
+  );
+
   winston.add(
     new winston.transports.MongoDB({
       db: "mongodb://localhost/vidly",
