@@ -1,21 +1,17 @@
-require("dotenv").config();
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const logger = require("./startup/logging");
 const db = require("./startup/db");
+const config = require("./startup/config");
 const routes = require("./startup/route");
 const express = require("express");
 const app = express();
 
 logger();
+config();
 db();
 routes(app);
-
-if (!process.env.JWT_SECRET_KEY) {
-  console.error("FATAL ERROR: JWT_SECRET_KEY is not defined.");
-  process.exit(1);
-}
 
 app.set("view engine", "pug");
 app.set("views", "./views");
