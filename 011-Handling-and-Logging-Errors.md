@@ -76,3 +76,17 @@ To handle exceptions thrown **outside Express (i.e., by Node.js)**, we can use t
 One of the standard events provided by `process` is `uncaughtException`. This event is triggered when there’s an **exception in the Node.js process**, and we haven’t handled it anywhere using a **catch block**.
 
 It’s best to add the uncaughtException handler at the top of the file, right after setting up Winston logging.
+
+# Unhandled Rejections
+
+Just like `uncaught exceptions`, there could be `unhandled rejections` at the top level (outside of Express). So we should catch them too.
+
+Whether we are dealing with uncaught exceptions or unhandled rejections, we should **terminate the Node process**. We should exit here; otherwise, our process can be in an unclean state. So as the best practice, we should terminate it and restart it in a clean state.
+
+**`Q`**: If we terminate the project, how are we going to start it in production?
+
+There are tools for that, which are called **process managers**.
+
+**Note - My Experience:** When we add `process.exit()`, it doesn’t log to the file and database properly. It exits immediately (because `process.exit()` is synchronous). To avoid this, as my method, we can add a timeout of 1 second to give Winston or any logger some time to log before exiting the process.
+
+**Extra:** Apart from `uncaughtException`, `unhandledRejection` events available on `process.on()`. We can use these with Winston’s built-in methods to catch errors. (But, I think since these are Node errors, it is good to catch them with Node.)

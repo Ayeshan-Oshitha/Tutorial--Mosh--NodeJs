@@ -27,8 +27,17 @@ winston.add(
 process.on("uncaughtException", (ex) => {
   console.log("WE GOT AN UNCAUGHT EXCEPTION");
   winston.error(ex.message, ex);
-  process.exit(1); // Additionely added by me - clean exit
+  setTimeout(() => process.exit(1), 1000);
 });
+
+process.on("unhandledRejection", (ex) => {
+  console.log("WE GOT AN UNHANDLED REJECTION");
+  winston.error(ex.message, ex);
+  setTimeout(() => process.exit(1), 1000);
+});
+
+const p = Promise.reject(new Error("Custom Promise Rejection Erroe"));
+p.then(() => console.log("Done"));
 
 if (!process.env.JWT_SECRET_KEY) {
   console.error("FATAL ERROR: JWT_SECRET_KEY is not defined.");
