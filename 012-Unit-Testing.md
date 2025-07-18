@@ -177,3 +177,11 @@ In unit tests, we should not interact with external systems like databases, file
 The main purpose of unit testing is to isolate the code and test it independently from external dependencies. This ensures that tests run quickly, reliably, and consistently, regardless of the environment.
 
 To achieve this isolation, we use mock functions — fake versions of real dependencies — so that we can simulate their behavior without actually calling them.
+
+# Interaction Testing
+
+In **interaction testing**, we focus on **how functions interact with their dependencies**, rather than the final output or result.
+
+For example, when testing a `notifyCustomer` function, we don't check the final output — we want to verify that it correctly calls the `mail.send`.
+
+This type of testing ensures that components work together as expected, and that important interactions (like sending an email) actually happen.
