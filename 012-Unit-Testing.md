@@ -141,3 +141,21 @@ describe("getCurrencies", () => {
   });
 });
 ```
+
+# Testing Objects
+
+When testing objects, we should **not use** `toBe`, because it checks the **same reference** of the objects.
+
+**Instead**, we can use `toEqual`, `toMatchObject`, and `toHaveProperty`. But when we use `toEqual`, our test becomes **too specific**, so it's better to use `toMatchObject` or `toHaveProperty`.
+
+```javascript
+describe("getProduct", () => {
+  it("Should return the product with the given id", () => {
+    const result = lib.getProduct(1);
+
+    expect(result).toEqual({ id: 1, price: 10 }); // received object should have only these two properties exactly
+    expect(result).toMatchObject({ id: 1, price: 10 }); // received object should at least contain these two properties
+    expect(result).toHaveProperty("id", 1); // received object should at least have this property
+  });
+});
+```
