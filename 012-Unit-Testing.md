@@ -205,3 +205,7 @@ const result1 = await mockFunction(); // will return 1
 mockFunction.mockRejectedValue(new Error("..."));
 // This can be caught in a try-catch block
 ```
+
+# What to Unit Test ?
+
+Use unit tests to test functions that contain logic or algorithms with zero or minimal dependencies. Avoid writing too many mocks — focus on testing pure functions whenever possible.
