@@ -185,3 +185,23 @@ In **interaction testing**, we focus on **how functions interact with their depe
 For example, when testing a `notifyCustomer` function, we don't check the final output — we want to verify that it correctly calls the `mail.send`.
 
 This type of testing ensures that components work together as expected, and that important interactions (like sending an email) actually happen.
+
+# Jest Mock Functions
+
+Using Jest, we can create a mock function. The mock function doesn't have any real code or implementation.
+
+We can program this mock to: return a specific value, return a promise, throw an error
+
+With mock functions, we can simplify the implementation of dependencies (mock dependencies).
+
+```javascript
+const mockFunction = jest.fn();
+
+mockFunction.mockReturnValue(123);
+
+mockFunction.mockResolvedValue(1);
+const result1 = await mockFunction(); // will return 1
+
+mockFunction.mockRejectedValue(new Error("..."));
+// This can be caught in a try-catch block
+```

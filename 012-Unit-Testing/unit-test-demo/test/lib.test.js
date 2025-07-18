@@ -75,18 +75,20 @@ describe("applyDiscount", () => {
 
 describe("notifyCustomer", () => {
   it("should send an email to the customer", () => {
-    // Mock Function
-    db.getCustomerSync = function (customerId) {
-      return { email: "a" };
-    };
-
-    // Mock Function
-    let mailsent = false;
-    mail.send = function (email, message) {
-      mailsent = true;
-    };
+    // Mock Functions
+    db.getCustomerSync = jest.fn().mockReturnValue({ email: "a" });
+    mail.send = jest.fn();
 
     lib.notifyCustomer({ customerId: 1 });
-    expect(mailsent).toBe(true);
+
+    // Note - For undrtanding
+    // The actual mail.send function in lib.js is run as usual.
+    // However, in this test, we have replaced mail.send with a mock function using jest.fn().it records when it was called and with what arguments.
+    //
+    // The first test (toHaveBeenCalled) checks that mail.send was called at least once.
+    // The second test checks that the first argument passed to mail.send was "a" (the customer's email).
+    expect(mail.send).toHaveBeenCalled();
+    expect(mail.send.mock.calls[0][0]).toBe("a");
+    expect(mail.send.mock.calls[0][1]).toMatch(/order/);
   });
 });
