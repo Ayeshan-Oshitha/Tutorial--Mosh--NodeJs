@@ -163,3 +163,9 @@ describe("getProduct", () => {
 # Testing Exceptions
 
 When testing exceptions, we should pass a **callback function** to the `expect` method, because we don’t get a direct result.
+
+# Continuously Running Test
+
+`"test": "jest --watchAll" `
+
+Using this, our test cases will run **automatically** whenever there is a change in production code or test code.
