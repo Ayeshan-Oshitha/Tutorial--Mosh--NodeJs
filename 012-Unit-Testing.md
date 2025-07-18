@@ -108,6 +108,36 @@ To make assertions on values, we use **matcher functions** (e.g., `toBe`, `toEqu
 
 # Testing Numbers
 
-When testing strings, we should make sure the test is not too specific.
+When testing strings, we should make sure the test is not too specific or too general. (If we write a test case to check for an exact pattern in the string, and tomorrow we change the display text by adding or removing a word (even a dot), the test case will break — even if the functionality is still correct.)
 
-Note - `it()` and `test()` are functionally the same in Jes
+Note - `it()` and `test()` are functionally the same in Jest
+
+# Testing Arrays
+
+#### Example for too general and too specific test cases
+
+```javascript
+describe("getCurrencies", () => {
+  it("should return supported currencies", () => {
+    const result = lib.getCurrencies();
+
+    // Too general
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+
+    // Too specific
+    expect(result[0]).toBe("USD");
+    expect(result[1]).toBe("AUR");
+    expect(result[2]).toBe("EUR");
+    expect(result.length).toBe(3);
+
+    // Proper Way - Check for existance without checking the location
+    expect(result).toContain("USD");
+    expect(result).toContain("AUR");
+    expect(result).toContain("EUR");
+
+    // Ideal Way
+    expect(result).toEqual(expect.arrayContaining(["EUR", "USD", "AUD"]));
+  });
+});
+```
