@@ -159,3 +159,7 @@ describe("getProduct", () => {
   });
 });
 ```
+
+# Testing Exceptions
+
+When testing exceptions, we should pass a **callback function** to the `expect` method, because we don’t get a direct result.
