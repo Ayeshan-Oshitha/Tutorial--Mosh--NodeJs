@@ -93,3 +93,15 @@ To write tests, we need a test framework. A test framework includes a library th
 Jest is built on top of Jasmine. Jest has all the features in Jasmine, as well as a built-in code coverage tool.
 
 Always install testing libraries as development dependencies
+
+# Testing Numbers
+
+### A general Question
+
+**`Q`** – How many unit tests should we write for a function?
+
+Basic guideline is: The number of unit tests for a given function should be greater than or equal to the number of execution paths (return paths).
+
+### Matcher Function
+
+To make assertions on values, we use **matcher functions** (e.g., `toBe`, `toEqual`, `toBeNull`).
