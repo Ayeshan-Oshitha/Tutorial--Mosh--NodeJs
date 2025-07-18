@@ -105,3 +105,9 @@ Basic guideline is: The number of unit tests for a given function should be grea
 ### Matcher Function
 
 To make assertions on values, we use **matcher functions** (e.g., `toBe`, `toEqual`, `toBeNull`).
+
+# Testing Numbers
+
+When testing strings, we should make sure the test is not too specific.
+
+Note - `it()` and `test()` are functionally the same in Jes
