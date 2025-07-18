@@ -169,3 +169,11 @@ When testing exceptions, we should pass a **callback function** to the `expect` 
 `"test": "jest --watchAll" `
 
 Using this, our test cases will run **automatically** whenever there is a change in production code or test code.
+
+# Creating simple Mock Functions
+
+In unit tests, we should not interact with external systems like databases, file systems, or APIs. Doing so turns the test into an integration test, which is slower and more fragile.
+
+The main purpose of unit testing is to isolate the code and test it independently from external dependencies. This ensures that tests run quickly, reliably, and consistently, regardless of the environment.
+
+To achieve this isolation, we use mock functions — fake versions of real dependencies — so that we can simulate their behavior without actually calling them.
