@@ -1,8 +1,18 @@
-require("dotenv").config();
+const nodeEnv = process.env.NODE_ENV;
+
+require("dotenv").config({ path: `.env.${nodeEnv}` });
 
 function config() {
   if (!process.env.JWT_SECRET_KEY) {
-    throw new Error("FATAL ERROR: jwtPrivateKey is not defined ");
+    throw new Error(
+      `FATAL ERROR: jwtPrivateKey is not defined in .env.${nodeEnv}`
+    );
+    // Since this runs outside of Express, the global 'uncaughtException' handler will catch it.
+  }
+  if (!process.env.MONGODB_URI) {
+    throw new Error(
+      `FATAL ERROR: mongoDbUri is not defined in .env.${nodeEnv}`
+    );
     // Since this runs outside of Express, the global 'uncaughtException' handler will catch it.
   }
 }
