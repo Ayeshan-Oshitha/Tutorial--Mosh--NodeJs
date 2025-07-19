@@ -19,6 +19,8 @@ routes(app);
 
 const port = process.env.PORT || 3003;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   winston.info(`Server is listening on ${port}...`);
 });
+
+module.exports = server;
