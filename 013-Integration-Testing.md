@@ -25,3 +25,9 @@ Each test should run in complete isolation — as if it’s the only test in the
 - After the test finishes, it should **clean up any data it created**.
 
 This ensures tests are repeatable, reliable, and do not interfere with each other.
+
+# Testing the Auth middleware
+
+We should test the auth middleware separately because it has two main outcomes.
+
+In the route handler tests, we don’t need to test the middleware again. We only need to check that the route is protected and the middleware is called.
