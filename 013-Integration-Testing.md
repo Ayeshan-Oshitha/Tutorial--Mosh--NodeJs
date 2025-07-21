@@ -31,3 +31,15 @@ This ensures tests are repeatable, reliable, and do not interfere with each othe
 We should test the auth middleware separately because it has two main outcomes.
 
 In the route handler tests, we don’t need to test the middleware again. We only need to check that the route is protected and the middleware is called.
+
+# Unit Testing the Auth Middleware
+
+With Supertest, we can't always access the request object — we can only test the response. So, to properly test the behavior inside the middleware, we should use unit tests instead.
+
+**Note**: Sometimes, even though npm test doesn't work, running npx jest --detectOpenHandles works. This is often because of the problem with servers starting in parallel.
+
+you can run your tests serially by updating the test script in your package.json like below and run npm test
+
+```bash
+"test": "cross-env NODE_ENV=test jest --runInBand --verbose"
+```
