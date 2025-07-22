@@ -39,3 +39,17 @@ If all the tests pass, then our application is good to go. If there’s a new bu
 It depends on the person and the situation.
 
 In theory, TDD is more promising because of the benefits mentioned above. But in practice, sometimes it gets really complex and can slow you down. In such cases, it’s better to write code first and then add test cases afterward.
+
+# Test Cases for Rental returns
+
+// POST /api/returns {customerId, movieId}
+
+- Returns 401 if client is not logged in
+- Returns 400 if customerId is not provided
+- returns 400 if movieId is not provided
+- returns 404 if no rental founf for this customer/movie
+- returns 200 if valid request
+- set the return data
+- calculate the rental fee
+- Increase the stock
+- Return the rental
