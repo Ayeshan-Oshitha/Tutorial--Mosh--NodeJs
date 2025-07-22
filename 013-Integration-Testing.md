@@ -38,8 +38,18 @@ With Supertest, we can't always access the request object — we can only test t
 
 **Note**: Sometimes, even though npm test doesn't work, running npx jest --detectOpenHandles works. This is often because of the problem with servers starting in parallel.
 
-you can run your tests serially by updating the test script in your package.json like below and run npm test
+you can run your tests serially by updating the test script(adding `--runInBand`) in your package.json like below and run npm test
 
 ```bash
 "test": "cross-env NODE_ENV=test jest --runInBand --verbose"
 ```
+
+# Code Coverage
+
+To generate a code coverage report using Jest, you can add the `--coverage` flag to your test script.
+
+```bash
+"test": "cross-env NODE_ENV=test jest --runInBand --verbose --coverage"
+```
+
+When this command is run, Jest generates a code coverage report, including an HTML version. You can open the HTML report in your browser to visually inspect which parts of your code (per file) are covered by tests and which are not.
