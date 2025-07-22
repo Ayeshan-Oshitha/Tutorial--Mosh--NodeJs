@@ -53,3 +53,13 @@ In theory, TDD is more promising because of the benefits mentioned above. But in
 - calculate the rental fee
 - Increase the stock
 - Return the rental
+
+- Returns 401 if client is not logged in - Don't think about auth moddleware, Just write simple passing code
+- Returns 400 if customerId is not provided - Don't think about Joi, Just write simple passing code
+- returns 400 if movieId is not provided - Don't think about Joi, Just write simple passing code
+- returns 404 if no rental founf for this customer/movie
+- returns 200 if valid request
+- set the return data
+- calculate the rental fee
+- Increase the stock
+- Return the rental

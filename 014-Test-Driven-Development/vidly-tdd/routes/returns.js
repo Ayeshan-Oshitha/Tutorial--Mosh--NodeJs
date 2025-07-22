@@ -2,7 +2,16 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  // Write the simplest code to pass the test
+  if (!req.body.customerId) {
+    // Don't think about Joi, Just write the simplese test case
+    return res.status(400).send("CustomerId not provided");
+  }
+
+  if (!req.body.movieId) {
+    // Don't think about Joi, Just write the simplese test case
+    return res.status(400).send("CustomerId not provided");
+  }
+
   res.status(401).send("Unauthorized");
 });
 
