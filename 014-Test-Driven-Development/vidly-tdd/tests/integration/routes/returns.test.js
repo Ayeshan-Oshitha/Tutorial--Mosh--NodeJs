@@ -72,4 +72,12 @@ describe("/api/returns", () => {
 
     expect(res.status).toBe(400);
   });
+
+  it("should return 404 if no rental found for the customerID & movieId", async () => {
+    await Rental.deleteMany({}); // delete rental to simulate no document in the database
+
+    const res = await exec();
+
+    expect(res.status).toBe(404);
+  });
 });
