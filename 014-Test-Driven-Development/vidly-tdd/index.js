@@ -6,6 +6,7 @@ const db = require("./startup/db");
 const config = require("./startup/config");
 const view = require("./startup/view");
 const routes = require("./startup/route");
+const prod = require("./startup/prod");
 
 const express = require("express");
 const app = express();
@@ -15,6 +16,7 @@ config();
 db();
 validation();
 view(app);
+prod(app);
 routes(app);
 
 const port = process.env.PORT || 3003;
