@@ -63,3 +63,37 @@ In theory, TDD is more promising because of the benefits mentioned above. But in
 - calculate the rental fee
 - Increase the stock
 - Return the rental
+
+# Mongoose Static Methods
+
+In OOP, we have 2 types of methods.
+
+- Static Methods
+- Instance Methods
+
+1. Static Methods
+
+- These methods are called on the class itself, not on an instance.
+- They don't depend on any particular object or instance of the class.
+
+```javascript
+Rental.lookup(...)
+```
+
+Here, `lookup` is a static method defined on the `Rental` class.
+
+2. Instance Methods
+
+- These methods are called on an instance (an object created from a class).
+- They usually operate on the specific data of that instance.
+
+```javascript
+new User().generateAuthToken();
+```
+
+Here, `generateAuthToken()` is an instance method that can only be called on a `User` object.
+
+### When to Use
+
+- Use **instance methods** when you're working with a **specific object**, and the method's behavior depends on that object's data.
+- Use **static methods** when the operation does **not depend on any particular object**, but still logically belongs to the class.
