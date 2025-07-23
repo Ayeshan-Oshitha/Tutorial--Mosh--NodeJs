@@ -18,10 +18,7 @@ router.post("/", auth, validate(validateReturn), async (req, res) => {
     return res.status(400).send("Return already processed");
   }
 
-  rental.dateReturned = new Date();
-  const rentalDays = moment().diff(rental.dateOut, "days");
-  rental.rentalFee = rentalDays * rental.movie.dailyRentalRate;
-
+  rental.return();
   await rental.save();
 
   await Movie.updateOne(

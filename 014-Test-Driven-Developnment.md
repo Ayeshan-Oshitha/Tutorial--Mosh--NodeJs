@@ -97,3 +97,7 @@ Here, `generateAuthToken()` is an instance method that can only be called on a `
 
 - Use **instance methods** when you're working with a **specific object**, and the method's behavior depends on that object's data.
 - Use **static methods** when the operation does **not depend on any particular object**, but still logically belongs to the class.
+
+# Refactoring the Domain Logic
+
+Moved the rental calculating logic to the Rental class (based on the Information Expert principle).
