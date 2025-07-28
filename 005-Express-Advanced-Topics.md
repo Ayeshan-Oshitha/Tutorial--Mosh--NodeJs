@@ -1,4 +1,4 @@
-# Middlewear
+# Middleware
 
 One of the core concepts of Express is middleware or middleware functions. A middleware function is basically a function that takes a request object and either returns a response to the client or passes control to another middleware.
 
